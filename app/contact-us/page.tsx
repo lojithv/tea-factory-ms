@@ -19,7 +19,7 @@ const ContactUs = (props: Props) => {
             <div className={`font-bold ${dmSerifDisplay.className} text-[48px] text-[#2c666eff]`}>Contact Us</div>
             <div className={`${bitter.className} px-56 mt-10`}>
                 <div>
-                    "Priyankara Tea Buyer Company" <br />
+                    &quot;Priyankara Tea Buyer Company&quot; <br />
                     Ketandola,<br />
                     Thalagaspe,<br />
                     Elpitiya
