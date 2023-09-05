@@ -15,7 +15,7 @@ const bitter = Bitter({
 
 const AboutUs = (props: Props) => {
     return (
-        <main className="flex min-h-screen flex-col items-center p-24">
+        <main className="flex min-h-full flex-col items-center p-24">
             <div className={`font-bold ${dmSerifDisplay.className} text-[48px] text-[#2c666eff]`}>About Us</div>
             <div className={`${bitter.className} px-56 mt-10`}>
                 "Priyankara Tea Buyers" is a company who collects tea leaves from suppliers around Thalagaspe,
