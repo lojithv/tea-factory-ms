@@ -16,7 +16,7 @@ const bitter = Bitter({
 const AboutUs = (props: Props) => {
     return (
         <div className="flex flex-grow items-center">
-            <div className='w-1/2 bg-pattern h-full flex items-center justify-center'>
+            <div className='w-1/2 h-full flex items-center justify-center'>
                 <div className="w-1/2 h-1/2 bg-[url('/tea-collecting.jpg')] bg-cover border-8 border-[#2da74b]"></div>
             </div>
             <div className="flex h-full w-1/2 flex-col items-start justify-center px-10">
