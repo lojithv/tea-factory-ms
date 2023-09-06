@@ -15,7 +15,7 @@ const bitter = Bitter({
 
 const ContactUs = (props: Props) => {
     return (
-        <main className="flex min-h-full flex-col items-center p-24">
+        <div className="flex flex-grow flex-col items-center p-24">
             <div className={`font-bold ${dmSerifDisplay.className} text-[48px] text-[#2da74b]`}>Contact Us</div>
             <div className={`${bitter.className} px-56 mt-10`}>
                 <div>
@@ -33,7 +33,7 @@ const ContactUs = (props: Props) => {
 
 
             </div>
-        </main>
+        </div>
     )
 }
 
