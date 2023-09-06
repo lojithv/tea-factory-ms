@@ -17,7 +17,7 @@ const Login = (props: Props) => {
     return (
         <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
             <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-                <h2 className={`mt-10 text-center text-2xl font-bold leading-9 tracking-tight ${dmSerifDisplay.className} text-[#2c666eff]`}>Sign in to your account</h2>
+                <h2 className={`mt-10 text-center text-2xl font-bold leading-9 tracking-tight ${dmSerifDisplay.className} text-[#2da74b]`}>Sign in to your account</h2>
             </div>
 
             <div className={`mt-10 sm:mx-auto sm:w-full sm:max-w-sm ${bitter.className}`}>
@@ -39,13 +39,13 @@ const Login = (props: Props) => {
                     </div>
 
                     <div>
-                        <button type="submit" className="flex w-full justify-center rounded-md bg-[#2c666eff] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#24555c] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#285d64]">Sign in</button>
+                        <button type="submit" className="flex w-full justify-center rounded-md bg-[#2da74b] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#24555c] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#285d64]">Sign in</button>
                     </div>
                 </form>
 
                 <p className="mt-10 text-center text-sm text-gray-500">
                     Not a member?
-                    <a href="/sign-up" className="ml-1 font-semibold leading-6 text-[#2c666eff] hover:text-[#23545a]">Sign Up</a>
+                    <a href="/sign-up" className="ml-1 font-semibold leading-6 text-[#2da74b] hover:text-[#23545a]">Sign Up</a>
                 </p>
             </div>
         </div>

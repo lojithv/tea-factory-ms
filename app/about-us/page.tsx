@@ -16,7 +16,7 @@ const bitter = Bitter({
 const AboutUs = (props: Props) => {
     return (
         <main className="flex min-h-full flex-col items-center p-24">
-            <div className={`font-bold ${dmSerifDisplay.className} text-[48px] text-[#2c666eff]`}>About Us</div>
+            <div className={`font-bold ${dmSerifDisplay.className} text-[48px] text-[#2da74b]`}>About Priyankara Tea Buyers</div>
             <div className={`${bitter.className} px-56 mt-10`}>
                 &quot;Priyankara Tea Buyers&quot; is a company who collects tea leaves from suppliers around Thalagaspe,
                 Katandola, Kellapatha, Amugoda, and other areas close to Elpitiya and Pitigala. K. W. Ajith
