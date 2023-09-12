@@ -18,8 +18,8 @@ const Navbar = (props: Props) => {
                 <Link href={'/products'}><div className='hover:text-[#2da74b]'>Products</div></Link>
                 <Link href={'/about-us'} className='hover:text-[#2da74b]'><div>About Us</div></Link>
                 <Link href={'/contact-us'}><div className='hover:text-[#2da74b]'>Contact Us</div></Link>
-                <Link href={'/login'}> <div className='border border-[#07393cff] hover:border-[#2da74b] hover:text-[#2da74b] p-2 '>Sign in</div></Link>
-                <Link href={'/signup'}><div className='border border-[#07393cff] hover:border-[#2da74b] hover:text-[#2da74b] p-2 '>Sign up</div></Link>
+                <Link href={'/login'}> <div className='bg-[#2da74b] text-white hover:bg-[#255e33] p-2'>Sign in</div></Link>
+                <Link href={'/signup'}><div className='bg-[#2da74b] text-white hover:bg-[#255e33] p-2'>Sign up</div></Link>
             </div>
         </div>
     )
