@@ -12,7 +12,7 @@ const dmSerifDisplay = Domine({
 const Navbar = (props: Props) => {
     return (
         <div className={`w-full flex items-center justify-between ${dmSerifDisplay.className} text-[#2c666eff] p-5`}>
-            <div className='text-[#2da74b]'>Priyankara Tea Buyers</div>
+            <div className='text-[#2da74b] font-bold text-[25px]'>Priyankara Tea Buyers</div>
             <div className='flex gap-5 items-center'>
                 <Link href={'/'}><div className='hover:text-[#2da74b]'>Home</div></Link>
                 <Link href={'/products'}><div className='hover:text-[#2da74b]'>Products</div></Link>
