@@ -1,8 +1,10 @@
 "use client"
 
 import Product from '@/components/Product'
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import { Bitter, DM_Serif_Display } from 'next/font/google'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import Swal from 'sweetalert2'
 
 const dmSerifDisplay = DM_Serif_Display({
     subsets: ['latin'],
@@ -17,8 +19,11 @@ const bitter = Bitter({
 type Props = {}
 
 const Products = (props: Props) => {
+    const supabase = createClientComponentClient()
 
     const [selectedTab, setSelectedTab] = useState(1)
+
+    const [user, setUser] = useState(null as any)
 
     const fertilizer = [
         { path: "/Fertilizer/1- Organic Manure - 5kg - Rs.250.jpg", name: "Organic Manure - 5kg", price: 'Rs.250' },
@@ -39,6 +44,24 @@ const Products = (props: Props) => {
         { path: "/Tea Powder/4- Evergreen Tea Powder - 2kg - Rs.3100.jpg", name: "Evergreen Tea Powder - 2kg", price: 'Rs.3100' },
     ]
 
+    useEffect(() => {
+
+        supabase.auth.getUser().then((res) => {
+            if (!res.error) {
+                console.log(res.data)
+                setUser(res.data.user)
+            } else {
+
+            }
+        })
+
+        return () => {
+
+        }
+    }, [])
+
+
+
     return (
         <div className='flex flex-grow items-center'>
             <div className="flex h-full w-full flex-col items-center justify-start px-10">
@@ -50,14 +73,14 @@ const Products = (props: Props) => {
                 {selectedTab == 1 && (
                     <div className='flex flex-wrap gap-5 p-10'>
                         {fertilizer.map((item, i) => (
-                            <Product key={i} image={item.path} name={item.name} price={item.price} />
+                            <Product key={i} image={item.path} name={item.name} price={item.price} user={user} />
                         ))}
                     </div>
                 )}
                 {selectedTab == 2 && (
                     <div className='flex flex-wrap gap-5 p-10'>
                         {teaPowder.map((item, i) => (
-                            <Product key={i} image={item.path} name={item.name} price={item.price} />
+                            <Product key={i} image={item.path} name={item.name} price={item.price} user={user} />
                         ))}
                     </div>
                 )}
