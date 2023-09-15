@@ -24,19 +24,19 @@ const Products = (props: Props) => {
         { path: "/Fertilizer/1- Organic Manure - 5kg - Rs.250.jpg", name: "Organic Manure - 5kg", price: 'Rs.250' },
         { path: "/Fertilizer/2- Organic Manure - 10kg - Rs.500.jpg", name: "Organic Manure - 10kg", price: 'Rs.500' },
         { path: "/Fertilizer/3-Dolamite - 10kg - Rs.500.jpg", name: "Dolamite - 10kg", price: 'Rs.500' },
-        { path: "/Fertilizer/4- T-65 - 50kg - Rs.1500.png", name: "Organic Manure - 5kg", price: 'Rs.1500' },
-        { path: "/Fertilizer/5-T-200 - 50kg - Rs.1500.png", name: "Organic Manure - 5kg", price: 'Rs.250' },
-        { path: "/Fertilizer/6- U-709 - 50kg - Rs.1500.png", name: "Organic Manure - 5kg", price: 'Rs.250' },
-        { path: "/Fertilizer/7- T-65 - 10kg- Rs.300.jpg", name: "Organic Manure - 5kg", price: 'Rs.250' },
-        { path: "/Fertilizer/8- T-200 - 10kg - Rs.300.jpg", name: "Organic Manure - 5kg", price: 'Rs.250' },
-        { path: "/Fertilizer/9- U-709 - 10kg-Rs.300.jpg", name: "Organic Manure - 5kg", price: 'Rs.250' },
-        { path: "/Fertilizer/10- UT-752 - 10kg- Rs.300.jpg", name: "Organic Manure - 5kg", price: 'Rs.250' },
+        { path: "/Fertilizer/4- T-65 - 50kg - Rs.1500.png", name: "4- T-65 - 50kg", price: 'Rs.1500' },
+        { path: "/Fertilizer/5-T-200 - 50kg - Rs.1500.png", name: "5-T-200 - 50kg", price: 'Rs.1500' },
+        { path: "/Fertilizer/6- U-709 - 50kg - Rs.1500.png", name: "U-709 - 50kg", price: 'Rs.1500' },
+        { path: "/Fertilizer/7- T-65 - 10kg- Rs.300.jpg", name: "T-65 - 10kg", price: 'Rs.300' },
+        { path: "/Fertilizer/8- T-200 - 10kg - Rs.300.jpg", name: "T-200 - 10kg", price: 'Rs.300' },
+        { path: "/Fertilizer/9- U-709 - 10kg-Rs.300.jpg", name: "U-709 - 10kg", price: 'Rs.300' },
+        { path: "/Fertilizer/10- UT-752 - 10kg- Rs.300.jpg", name: "UT-752 - 10kg", price: 'Rs.300' },
     ]
     const teaPowder = [
-        { path: "/Tea Powder/1-Evergreen Tea Powder - 400g - Rs.650.jpg", name: "Organic Manure - 5kg", price: 'Rs.250' },
-        { path: "/Tea Powder/2- Evergreen Brombil Tea - 400g - Rs.790.jpg", name: "Organic Manure - 5kg", price: 'Rs.250' },
-        { path: "/Tea Powder/3- Evergreen Tea Powder - 1kg - Rs.1600.jpg", name: "Organic Manure - 5kg", price: 'Rs.250' },
-        { path: "/Tea Powder/4- Evergreen Tea Powder - 2kg - Rs.3100.jpg", name: "Organic Manure - 5kg", price: 'Rs.250' },
+        { path: "/Tea Powder/1-Evergreen Tea Powder - 400g - Rs.650.jpg", name: "Evergreen Tea Powder - 400g", price: 'Rs.650' },
+        { path: "/Tea Powder/2- Evergreen Brombil Tea - 400g - Rs.790.jpg", name: "Evergreen Brombil Tea - 400g", price: 'Rs.790' },
+        { path: "/Tea Powder/3- Evergreen Tea Powder - 1kg - Rs.1600.jpg", name: "Evergreen Tea Powder - 1kg", price: 'Rs.1600' },
+        { path: "/Tea Powder/4- Evergreen Tea Powder - 2kg - Rs.3100.jpg", name: "Evergreen Tea Powder - 2kg", price: 'Rs.3100' },
     ]
 
     return (
