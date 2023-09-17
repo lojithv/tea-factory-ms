@@ -14,7 +14,7 @@ const dmSerifDisplay = Domine({
 
 const Navbar = (props: Props) => {
 
-    const [userType, setUserType] = useState('employee')
+    const [userType, setUserType] = useState('')
 
     const router = useRouter()
 
@@ -25,6 +25,8 @@ const Navbar = (props: Props) => {
             router.push('/customer-dashboard')
         } else if (userType === 'admin') {
             router.push('/admin-dashboard')
+        } else {
+            router.push('/')
         }
     }, [])
 
