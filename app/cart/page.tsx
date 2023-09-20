@@ -25,7 +25,7 @@ function Cart({ }: Props) {
     const [cartItems, setCartItems] = useState([] as any[])
 
     useEffect(() => {
-        if (user) {
+        if (user && !cartItems.length) {
             supabase.from('carts').select().eq('userid', user?.user.id).then((res) => {
                 if (res.data) {
                     console.log(res)
@@ -33,7 +33,7 @@ function Cart({ }: Props) {
                 }
             })
         }
-    }, [])
+    }, [user])
 
 
     const getTotal = () => {
@@ -47,9 +47,9 @@ function Cart({ }: Props) {
     return (
         <div className='flex flex-grow items-center'>
             <div className="flex h-full w-full flex-col items-center justify-start px-10">
-                <div className={`font-bold ${dmSerifDisplay.className} text-[48px] text-[#2da74b]`}>Products</div>
+                <div className={`font-bold ${dmSerifDisplay.className} text-[48px] text-[#2da74b]`}>Cart</div>
 
-                {cartItems.length && (
+                {cartItems.length > 0 && (
                     <div className='flex flex-col gap-5 p-10'>
                         {cartItems.map((item: { product: string; price: any }, i: React.Key | null | undefined) => (
                             <CartItem key={i} name={item.product} price={item.price} />
@@ -57,7 +57,7 @@ function Cart({ }: Props) {
                     </div>
                 )}
 
-                {cartItems.length && (
+                {cartItems.length > 0 && (
                     <div>Total: {getTotal()}</div>
                 )}
 
