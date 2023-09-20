@@ -1,6 +1,7 @@
 "use client"
 
 import useUser from '@/hooks/useUser'
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import { Abril_Fatface, DM_Serif_Display, Domine } from 'next/font/google'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
@@ -23,6 +24,8 @@ const Navbar = (props: Props) => {
 
     const currentPage = usePathname()
 
+    const supabase = createClientComponentClient()
+
     useEffect(() => {
         console.log(currentPage)
         if (user) {
@@ -42,6 +45,13 @@ const Navbar = (props: Props) => {
         }
 
     }, [user])
+
+    const handleLogout = () => {
+        supabase.auth.signOut()
+        setUserType('')
+        router.push('/')
+        console.log('handle logout')
+    }
 
 
     return (
@@ -66,7 +76,7 @@ const Navbar = (props: Props) => {
                         <Link href={'/cart'}><div className='hover:text-[#2da74b]'>Cart</div></Link>
                         <Link href={'/order-history'}><div className='hover:text-[#2da74b]'>Order History</div></Link>
                         <Link href={'/user-details'}><div className='hover:text-[#2da74b]'>Profile</div></Link>
-                        <Link href={'/login'}> <div className='bg-[#2da74b] text-white hover:bg-[#255e33] p-2'>Logout</div></Link>
+                        <div onClick={handleLogout}> <div className='bg-[#2da74b] text-white hover:bg-[#255e33] p-2'>Logout</div></div>
                     </>
                 )}
 
@@ -76,7 +86,7 @@ const Navbar = (props: Props) => {
                         <Link href={'/employee-dashboard'}><div className='hover:text-[#2da74b]'>Dashboard</div></Link>
                         {/* <Link href={'/location'}><div className='hover:text-[#2da74b]'>Location</div></Link> */}
                         <Link href={'/user-details'}><div className='hover:text-[#2da74b]'>Profile</div></Link>
-                        <Link href={'/login'}> <div className='bg-[#2da74b] text-white hover:bg-[#255e33] p-2'>Logout</div></Link>
+                        <div onClick={handleLogout}> <div className='bg-[#2da74b] text-white hover:bg-[#255e33] p-2'>Logout</div></div>
                     </>
                 )}
 
@@ -86,7 +96,7 @@ const Navbar = (props: Props) => {
                         <Link href={'/customers'}><div className='hover:text-[#2da74b]'>Customers</div></Link>
                         <Link href={'/employees'}><div className='hover:text-[#2da74b]'>Employees</div></Link>
                         <Link href={'/user-details'}><div className='hover:text-[#2da74b]'>Profile</div></Link>
-                        <Link href={'/login'}> <div className='bg-[#2da74b] text-white hover:bg-[#255e33] p-2'>Logout</div></Link>
+                        <div onClick={handleLogout}> <div className='bg-[#2da74b] text-white hover:bg-[#255e33] p-2'>Logout</div></div>
                     </>
                 )}
             </div>
