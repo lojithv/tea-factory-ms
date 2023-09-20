@@ -39,7 +39,11 @@ const SignUp = (props: Props) => {
         }).then((res) => {
             console.log(res)
             if (!res.error) {
-                router.push('/login')
+                supabase.from('users').insert({ userid: res.data.user?.id, fullname: fullName, address: address, phonenumber: phoneNum, usertype: 'customer' }).then((res1) => {
+                    if (!res1.error) {
+                        router.push('/login')
+                    }
+                })
             } else {
                 Swal.fire({
                     icon: 'error',

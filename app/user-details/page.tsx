@@ -1,3 +1,6 @@
+"use client"
+
+import useUser from '@/hooks/useUser'
 import { Mail, MapPin, Phone, UserCircle2 } from 'lucide-react'
 import { Bitter, DM_Serif_Display } from 'next/font/google'
 import React from 'react'
@@ -14,7 +17,10 @@ const bitter = Bitter({
     weight: '400'
 })
 
-const page = (props: Props) => {
+const UserDeails = (props: Props) => {
+
+    const user = useUser()
+
     return (
         <div className="flex flex-grow items-center">
             <div className='w-1/2 h-full flex items-center justify-center'>
@@ -25,22 +31,19 @@ const page = (props: Props) => {
                 <div className={`${bitter.className} mt-10`}>
                     <div className='flex font-bold gap-2 text-[#2da74b]'><MapPin />Address:</div>
                     <div>
-                        &quot;Priyankara Tea Buyer Company&quot; <br />
-                        Ketandola,<br />
-                        Thalagaspe,<br />
-                        Elpitiya
+                        {user?.userDetails.address}
                     </div>
                     <div className='flex font-bold mt-5 gap-2 text-[#2da74b]'><UserCircle2 />Owner:</div>
                     <div>
-                        K.W. Ajith Priyankara
+                        {user?.userDetails.fullname}
                     </div>
                     <div className='flex font-bold mt-5 gap-2 text-[#2da74b]'><Phone />Contact:</div>
                     <div>
-                        091 2254301
+                        {user?.userDetails.phonenumber}
                     </div>
                     <div className='flex font-bold mt-5 gap-2 text-[#2da74b]'><Mail />Email:</div>
                     <div>
-                        priyatea33@gmail.com
+                        {user?.user.email}
                     </div>
 
 
@@ -51,4 +54,4 @@ const page = (props: Props) => {
     )
 }
 
-export default page
+export default UserDeails

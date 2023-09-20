@@ -1,8 +1,9 @@
 "use client"
 
+import useUser from '@/hooks/useUser'
 import { Abril_Fatface, DM_Serif_Display, Domine } from 'next/font/google'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 
 type Props = {}
@@ -18,17 +19,29 @@ const Navbar = (props: Props) => {
 
     const router = useRouter()
 
+    const user = useUser()
+
+    const currentPage = usePathname()
+
     useEffect(() => {
-        if (userType === 'employee') {
-            router.push('/employee-dashboard')
-        } else if (userType === 'customer') {
-            router.push('/customer-dashboard')
-        } else if (userType === 'admin') {
-            router.push('/admin-dashboard')
-        } else {
-            router.push('/')
+        console.log(currentPage)
+        if (user) {
+            setUserType(user.userDetails.usertype)
         }
-    }, [])
+
+        if (currentPage === '/') {
+            if (user && user.userDetails.usertype === 'employee') {
+                router.push('/employee-dashboard')
+            } else if (user && user.userDetails.usertype === 'customer') {
+                router.push('/user-details')
+            } else if (user && user.userDetails.usertype === 'admin') {
+                router.push('/admin-dashboard')
+            } else {
+                router.push('/')
+            }
+        }
+
+    }, [user])
 
 
     return (
