@@ -42,14 +42,15 @@ const Navbar = (props: Props) => {
             } else {
                 router.push('/')
             }
+        } else if (!user?.user) {
+            router.push('/')
         }
-
     }, [user])
 
     const handleLogout = () => {
         supabase.auth.signOut()
         setUserType('')
-        router.push('/')
+        router.push('/login')
         console.log('handle logout')
     }
 
