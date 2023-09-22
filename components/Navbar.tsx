@@ -42,8 +42,6 @@ const Navbar = (props: Props) => {
             } else {
                 router.push('/')
             }
-        } else if (!user?.user) {
-            router.push('/')
         }
     }, [user])
 
@@ -73,7 +71,7 @@ const Navbar = (props: Props) => {
                     <>
                         <Link href={'/customer-dashboard'}><div className='hover:text-[#2da74b]'>Dashboard</div></Link>
                         <Link href={'/products'}><div className='hover:text-[#2da74b]'>Products</div></Link>
-                        <Link href={'/suppliers'}><div className='hover:text-[#2da74b]'>Suppliers</div></Link>
+                        <Link href={'/tea-collectors'}><div className='hover:text-[#2da74b]'>Tea Collectors</div></Link>
                         <Link href={'/cart'}><div className='hover:text-[#2da74b]'>Cart</div></Link>
                         <Link href={'/order-history'}><div className='hover:text-[#2da74b]'>Order History</div></Link>
                         <Link href={'/user-details'}><div className='hover:text-[#2da74b]'>Profile</div></Link>
