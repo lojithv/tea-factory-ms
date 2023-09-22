@@ -14,6 +14,12 @@ const dmSerifDisplay = Domine({
     weight: '400'
 })
 
+const userTypes = {
+    admin: 'admin',
+    employee: 'employee',
+    customer: 'customer'
+}
+
 const Navbar = (props: Props) => {
 
     const [userType, setUserType] = useState('')
@@ -32,17 +38,17 @@ const Navbar = (props: Props) => {
             setUserType(user.userDetails.usertype)
         }
 
-        if (currentPage === '/') {
-            if (user && user.userDetails.usertype === 'employee') {
-                router.push('/employee-dashboard')
-            } else if (user && user.userDetails.usertype === 'customer') {
-                router.push('/user-details')
-            } else if (user && user.userDetails.usertype === 'admin') {
-                router.push('/admin-dashboard')
-            } else {
-                router.push('/')
-            }
-        }
+        // if (currentPage === '/') {
+        //     if (user && user.userDetails.usertype === 'employee') {
+        //         router.push('/employee-dashboard')
+        //     } else if (user && user.userDetails.usertype === 'customer') {
+        //         router.push('/user-details')
+        //     } else if (user && user.userDetails.usertype === 'admin') {
+        //         router.push('/admin-dashboard')
+        //     } else {
+        //         router.push('/')
+        //     }
+        // }
     }, [user])
 
     const handleLogout = () => {
