@@ -22,7 +22,7 @@ const userTypes = {
 
 const Navbar = (props: Props) => {
 
-    const [userType, setUserType] = useState('')
+    const [userType, setUserType] = useState(userTypes.admin)
 
     const router = useRouter()
 
@@ -98,6 +98,7 @@ const Navbar = (props: Props) => {
                 {userType && userType == 'admin' && (
                     <>
                         <Link href={'/admin-dashboard'}><div className='hover:text-[#2da74b]'>Dashboard</div></Link>
+                        <Link href={'/manage-products'}><div className='hover:text-[#2da74b]'>Manage Products</div></Link>
                         <Link href={'/customers'}><div className='hover:text-[#2da74b]'>Customers</div></Link>
                         <Link href={'/employees'}><div className='hover:text-[#2da74b]'>Employees</div></Link>
                         <Link href={'/user-details'}><div className='hover:text-[#2da74b]'>Profile</div></Link>

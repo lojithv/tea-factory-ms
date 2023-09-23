@@ -13,11 +13,11 @@ const bitter = Bitter({
     weight: '400'
 })
 
-const page = (props: Props) => {
+function ManageProducts({ }: Props) {
     return (
         <div className='flex flex-grow items-center'>
             <div className="flex h-full w-full flex-col items-center justify-start px-10">
-                <div className={`font-bold ${dmSerifDisplay.className} text-[48px] text-[#2da74b]`}>Employees</div>
+                <div className={`font-bold ${dmSerifDisplay.className} text-[48px] text-[#2da74b]`}>Manage Products</div>
                 <div className='flex'>
 
                 </div>
@@ -27,4 +27,4 @@ const page = (props: Props) => {
     )
 }
 
-export default page
+export default ManageProducts
