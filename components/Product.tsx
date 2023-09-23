@@ -1,4 +1,4 @@
-import { AuthContext } from '@/app/context/AuthContext';
+import { AuthContext } from '@/context/AuthContext';
 import useUser from '@/hooks/useUser';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import Image from 'next/image'

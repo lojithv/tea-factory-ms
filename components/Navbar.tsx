@@ -22,7 +22,7 @@ const userTypes = {
 
 const Navbar = (props: Props) => {
 
-    const [userType, setUserType] = useState(userTypes.admin)
+    const [userType, setUserType] = useState('')
 
     const router = useRouter()
 
@@ -36,19 +36,21 @@ const Navbar = (props: Props) => {
         console.log(currentPage)
         if (user) {
             setUserType(user.userDetails.usertype)
+        } else {
+            setUserType('')
         }
 
-        // if (currentPage === '/') {
-        //     if (user && user.userDetails.usertype === 'employee') {
-        //         router.push('/employee-dashboard')
-        //     } else if (user && user.userDetails.usertype === 'customer') {
-        //         router.push('/user-details')
-        //     } else if (user && user.userDetails.usertype === 'admin') {
-        //         router.push('/admin-dashboard')
-        //     } else {
-        //         router.push('/')
-        //     }
-        // }
+        if (currentPage === '/') {
+            if (user && user.userDetails.usertype === 'employee') {
+                router.push('/employee-dashboard')
+            } else if (user && user.userDetails.usertype === 'customer') {
+                router.push('/user-details')
+            } else if (user && user.userDetails.usertype === 'admin') {
+                router.push('/admin-dashboard')
+            } else {
+                router.push('/')
+            }
+        }
     }, [user])
 
     const handleLogout = () => {
