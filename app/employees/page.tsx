@@ -32,6 +32,7 @@ const Employee = (props: Props) => {
     const supabase = createClientComponentClient()
     const [users, setUsers] = useState<any>();
     const [error, setError] = useState<any>(null);
+    const [state, setState] = useState<boolean>(false);
 
     useEffect(() => {
         const closePopupOnOutsideClick = (event: any) => {
@@ -72,6 +73,7 @@ const Employee = (props: Props) => {
             if (!res.error) {
                 supabase.from('users').insert({ userid: res.data.user?.id, fullname: fullName, address: address, phonenumber: phoneNum, usertype: 'employee' }).then((res1) => {
                     if (!res1.error) {
+                        setState(!state)
                         togglePopup()
                     }
                 })
@@ -105,7 +107,7 @@ const Employee = (props: Props) => {
         }
 
         fetchData();
-    }, []);
+    }, [state]);
 
     return (
         <>
