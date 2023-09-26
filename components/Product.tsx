@@ -18,6 +18,8 @@ const Product = (props: Props) => {
 
     const currentUser = useContext(AuthContext);
 
+    console.log("currentUser==>",currentUser)
+
     const handleAddToCart = async () => {
         if (!currentUser) {
             Swal.fire({
