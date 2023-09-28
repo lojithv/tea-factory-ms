@@ -1,7 +1,10 @@
 "use client"
 
+import useUser from '@/hooks/useUser'
 import { Bitter, DM_Serif_Display } from 'next/font/google'
 import React, { useState } from 'react'
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
+import Swal from 'sweetalert2'
 
 type Props = {}
 
@@ -18,10 +21,49 @@ const bitter = Bitter({
 const EmployeeDashboard = (props: Props) => {
 
     const [selectedRoute, setSelectedRoute] = useState('none')
+    const user = useUser()
+    const supabase = createClientComponentClient()
+    const [error, setError] = useState<any>(null);
+    console.log("user===>",user)
 
     const handleRouteSelect = (e: any) => {
         setSelectedRoute(e.target.value)
     }
+
+    const addRoute = async () => {
+        try {
+            const { data, error } = await supabase
+                .from('routes')
+                .insert([
+                    { path: selectedRoute, created_userid: user?.userDetails?.userid },
+                ])
+                .select();
+
+            if (error) {
+                setError(error.message);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: error.message,
+                    confirmButtonColor: '#2da74b'
+                })
+            } else {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success',
+                    text: 'Successfully Added',
+                    confirmButtonColor: '#2da74b'
+                })
+            }
+        } catch (error) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: "Network error",
+                confirmButtonColor: '#2da74b'
+            })
+        }
+    };
 
     return (
         <div className="flex flex-grow flex-col justify-start px-6 py-12 lg:px-8 gap-10">
@@ -37,6 +79,14 @@ const EmployeeDashboard = (props: Props) => {
                     <option value="Kellapatha - Pitigala">Kellapatha - Pitigala</option>
                     <option value="Kellapatha - Porawagam">Kellapatha - Porawagama</option>
                 </select>
+            </div>
+            <div className='flex justify-center'>
+                <button
+                    onClick={() => addRoute()}
+                    className={`${dmSerifDisplay.className} mb-4 bg-[#2da74b] hover:bg-[#2da74b]-700 text-white font-bold py-2 px-4 rounded`}
+                >
+                    Add route
+                </button>
             </div>
 
         </div>
