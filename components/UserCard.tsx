@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Bitter, DM_Serif_Display } from 'next/font/google'
+import { useRouter } from 'next/router';
 
 const dmSerifDisplay = DM_Serif_Display({
     subsets: ['latin'],
@@ -13,17 +14,23 @@ const bitter = Bitter({
 interface UserProps {
     user: any;
     index: number;
+    isDelete: boolean;
 }
-const UserCard: React.FC<UserProps> = ({ user, index }) => {
+const UserCard: React.FC<UserProps> = ({ user, index, isDelete }) => {
 
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    // const router = useRouter();
 
     const toggleDropdown = () => {
         setIsDropdownOpen(!isDropdownOpen);
     };
-
+    const handleClickCard = (userId:any) => {
+        if(!isDelete){
+            localStorage.setItem('ClickedUserId', userId);
+        }
+    }
     return (
-        <div key={index} className=" w-full p-2 mb-1 mt-1 bg-white border border-gray-200 rounded-lg shadow sm:p-4 dark:bg-gray-800 dark:border-gray-700">
+        <a href={isDelete?'#':'/single-tea-collector'} onClick={()=> handleClickCard(user?.userid)} key={index} className={`cursor-pointer w-full p-2 mb-1 mt-1 bg-white border border-gray-200 rounded-lg shadow sm:p-4 dark:bg-gray-800 dark:border-gray-700`}>
             <div className="flow-root">
                 <ul role="list" className="divide-y divide-gray-200 dark:divide-gray-700">
                     <li className="py-3 sm:py-4">
@@ -44,16 +51,21 @@ const UserCard: React.FC<UserProps> = ({ user, index }) => {
                                     {user?.phonenumber}
                                 </p>
                             </div>
-                            <div className="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                                <button className={`${dmSerifDisplay.className} bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full`}>
-                                    Delete
-                                </button>
-                            </div>
+                            {
+                                isDelete && (
+                                    <div className="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
+                                        <button className={`${dmSerifDisplay.className} bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full`}>
+                                            Delete
+                                        </button>
+                                    </div>
+                                )
+                            }
+
                         </div>
                     </li>
                 </ul>
             </div>
-        </div>
+        </a>
     );
 }
 
