@@ -19,6 +19,9 @@ const useUser = () => {
                     if (res1.data)
                         setUserDetails(res1.data[0])
                 })
+            } else {
+                setUserDetails(null)
+                setUser(null)
             }
         })
     }, [])

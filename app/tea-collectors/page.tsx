@@ -1,11 +1,13 @@
 "use client"
+
 import UserCard from '@/components/UserCard'
-import { Bitter, DM_Serif_Display } from 'next/font/google'
-import React, { useState, useEffect } from 'react'
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
+import { Bitter, DM_Serif_Display } from 'next/font/google'
+import { useRouter } from 'next/navigation'
+import React, { useState, useEffect } from 'react'
+import Swal from 'sweetalert2'
 
 type Props = {}
-
 
 const dmSerifDisplay = DM_Serif_Display({
     subsets: ['latin'],
@@ -17,10 +19,19 @@ const bitter = Bitter({
     weight: '400'
 })
 
-const Customers = (props: Props) => {
-    const [customers, setCustomers] = useState<any>();
-    const [error, setError] = useState<any>(null);
+const TeaCollectors = (props: Props) => {
+    const [isOpen, setIsOpen] = useState(false);
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [confirmedPassword, setConfirmedPassword] = useState('')
+    const [fullName, setFullName] = useState('')
+    const [address, setAddress] = useState('')
+    const [phoneNum, setPhoneNum] = useState('')
+    const router = useRouter()
     const supabase = createClientComponentClient()
+    const [users, setUsers] = useState<any>();
+    const [error, setError] = useState<any>(null);
+    const [state, setState] = useState<boolean>(false);
 
     useEffect(() => {
         async function fetchData() {
@@ -28,12 +39,12 @@ const Customers = (props: Props) => {
                 const { data, error } = await supabase
                     .from('users')
                     .select('*')
-                    .eq('usertype', 'customer');
+                    .eq('usertype', 'employee');
 
                 if (error) {
                     setError(error);
                 } else {
-                    setCustomers(data);
+                    setUsers(data);
                 }
             } catch (error) {
                 setError(error);
@@ -47,9 +58,9 @@ const Customers = (props: Props) => {
             <div className="flex mb-4">
                 <div className="w-1/4  h-auto"></div>
                 <div className="w-2/4  h-auto flex flex-col items-center">
-                    <div className={`font-bold ${dmSerifDisplay.className} text-[48px] text-[#2da74b] mb-2`}>Customers</div>
+                    <div className={`font-bold ${dmSerifDisplay.className} text-[48px] text-[#2da74b] mb-2`}>Tea collectors</div>
 
-                    {customers?.map((user: any, index: any) => (
+                    {users?.map((user: any, index: any) => (
                         <UserCard key={index} index={index} user={user} isDelete={false} />
                     ))}
                 </div>
@@ -59,4 +70,4 @@ const Customers = (props: Props) => {
     )
 }
 
-export default Customers
+export default TeaCollectors

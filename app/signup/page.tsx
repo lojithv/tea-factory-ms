@@ -21,6 +21,7 @@ const bitter = Bitter({
 const SignUp = (props: Props) => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [confirmedPassword, setConfirmedPassword] = useState('')
     const [fullName, setFullName] = useState('')
     const [address, setAddress] = useState('')
     const [phoneNum, setPhoneNum] = useState('')
@@ -29,6 +30,15 @@ const SignUp = (props: Props) => {
     const supabase = createClientComponentClient()
 
     const handleSignUp = async () => {
+        if (password !== confirmedPassword) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: "Passwords do not match",
+                confirmButtonColor: '#2da74b'
+            })
+            return
+        }
         await supabase.auth.signUp({
             email,
             password,
@@ -83,6 +93,15 @@ const SignUp = (props: Props) => {
                         </div>
                         <div className="mt-2">
                             <input id="password" name="password" type="password" autoComplete="current-password" onChange={(e) => setPassword(e.target.value)} required className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                        </div>
+                    </div>
+
+                    <div>
+                        <div className="flex items-center justify-between">
+                            <label htmlFor="confirmpassword" className="block text-sm font-medium leading-6 text-gray-900">Confirm Password</label>
+                        </div>
+                        <div className="mt-2">
+                            <input id="confirmpassword" name="confirmpassword" type="password" onChange={(e) => setConfirmedPassword(e.target.value)} required className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
                         </div>
                     </div>
 

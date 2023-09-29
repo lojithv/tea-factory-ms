@@ -6,7 +6,7 @@ import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import { Bitter, DM_Serif_Display } from 'next/font/google'
 import React, { useEffect, useState } from 'react'
 import Swal from 'sweetalert2'
-import { AuthContext } from '../context/AuthContext'
+import { AuthContext } from '../../context/AuthContext'
 
 const dmSerifDisplay = DM_Serif_Display({
     subsets: ['latin'],

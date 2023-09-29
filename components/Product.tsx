@@ -1,4 +1,4 @@
-import { AuthContext } from '@/app/context/AuthContext';
+import { AuthContext } from '@/context/AuthContext';
 import useUser from '@/hooks/useUser';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import Image from 'next/image'
@@ -17,6 +17,8 @@ const Product = (props: Props) => {
     const supabase = createClientComponentClient()
 
     const currentUser = useContext(AuthContext);
+
+    console.log("currentUser==>",currentUser)
 
     const handleAddToCart = async () => {
         if (!currentUser) {
