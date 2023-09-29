@@ -218,7 +218,7 @@ const Employee = (props: Props) => {
                         )}
                     </div>
                     {users?.map((user: any, index: any) => (
-                        <UserCard index={index} user={user} isDelete={true} />
+                        <UserCard key={index} index={index} user={user} isDelete={true} />
                     ))}
                 </div>
                 <div className="w-1/4  h-auto"></div>

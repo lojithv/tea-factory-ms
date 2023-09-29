@@ -33,7 +33,6 @@ const Navbar = (props: Props) => {
     const supabase = createClientComponentClient()
 
     useEffect(() => {
-        console.log(currentPage)
         if (user) {
             setUserType(user.userDetails.usertype)
         } else {

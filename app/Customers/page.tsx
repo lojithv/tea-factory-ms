@@ -17,7 +17,7 @@ const bitter = Bitter({
     weight: '400'
 })
 
-const page = (props: Props) => {
+const Customers = (props: Props) => {
     const [customers, setCustomers] = useState<any>();
     const [error, setError] = useState<any>(null);
     const supabase = createClientComponentClient()
@@ -48,9 +48,9 @@ const page = (props: Props) => {
                 <div className="w-1/4  h-auto"></div>
                 <div className="w-2/4  h-auto flex flex-col items-center">
                     <div className={`font-bold ${dmSerifDisplay.className} text-[48px] text-[#2da74b] mb-2`}>Customers</div>
-                    
+
                     {customers?.map((user: any, index: any) => (
-                        <UserCard index={index} user={user} />
+                        <UserCard key={index} index={index} user={user} isDelete={false} />
                     ))}
                 </div>
                 <div className="w-1/4  h-auto"></div>
@@ -59,4 +59,4 @@ const page = (props: Props) => {
     )
 }
 
-export default page
+export default Customers
