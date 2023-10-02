@@ -15,7 +15,7 @@ interface UserProps {
     user: any;
     index: number;
     isDelete: boolean;
-    onDeleteUser: (data: string) => void;
+    onDeleteUser?: (data: string) => void;
 }
 const UserCard: React.FC<UserProps> = ({ user, index, isDelete, onDeleteUser }) => {
 
@@ -31,7 +31,8 @@ const UserCard: React.FC<UserProps> = ({ user, index, isDelete, onDeleteUser }) 
         }
     }
     const sendDeleteUserId = (userId: any) => {
-        onDeleteUser(userId);
+        if (onDeleteUser)
+            onDeleteUser(userId);
     };
     return (
         <a href={isDelete ? '#' : '/single-tea-collector'} onClick={() => handleClickCard(user?.userid)} key={index} className={`cursor-pointer w-full p-2 mb-1 mt-1 bg-white border border-gray-200 rounded-lg shadow sm:p-4`}>

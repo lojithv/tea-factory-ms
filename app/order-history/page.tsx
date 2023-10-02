@@ -17,7 +17,7 @@ const bitter = Bitter({
     weight: '400'
 })
 
-const page = (props: Props) => {
+const OrderHistory = (props: Props) => {
     const supabase = createClientComponentClient()
     const [orders, setOrders] = useState([] as any[])
     const [error, setError] = useState<any>(null);
@@ -31,7 +31,7 @@ const page = (props: Props) => {
                 }
             })
         }
-    }, [user])  
+    }, [user])
     return (
         <>
             <div className="flex mb-4">
@@ -39,8 +39,8 @@ const page = (props: Props) => {
                 <div className="w-2/4  h-auto flex flex-col items-center">
                     <div className={`font-bold ${dmSerifDisplay.className} text-[48px] text-[#2da74b] mb-2`}>Order history</div>
                     {orders.map((item: any, index: any) => (
-                            <OrderedCard order={item} index={index} key={index} />
-                        ))}
+                        <OrderedCard order={item} index={index} key={index} />
+                    ))}
                 </div>
                 <div className="w-1/4  h-auto"></div>
             </div>
@@ -48,4 +48,4 @@ const page = (props: Props) => {
     )
 }
 
-export default page
+export default OrderHistory
