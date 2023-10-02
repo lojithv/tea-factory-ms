@@ -11,6 +11,10 @@ type Props = {
     price: any;
     user?: any;
     quantity: string;
+    id: string;
+    type: string;
+    onUpdateProduct: (image: string,name: string,price: string,quantity: string,type: string,id:string) => void;
+    onDeleteProduct: (id: string) => void;
 }
 
 const ProductItem = (props: Props) => {
@@ -21,12 +25,12 @@ const ProductItem = (props: Props) => {
 
     console.log("currentUser==>", currentUser)
 
-    const handleUpdate = async () => {
+    const sendUpdateData = () => {
+        props.onUpdateProduct(props.image,props.name,props.price,props.quantity,props.type,props.id);
+      };
 
-    }
-
-    const handleDelete = async () => {
-
+    const sendDeleteData = async () => {
+        props.onDeleteProduct(props.id);
     }
 
     return (
@@ -37,8 +41,8 @@ const ProductItem = (props: Props) => {
                 <div>Rs. {props.price}</div>
                 <div>Quantity {props.quantity}</div>
                 <div className='flex gap-2 mt-4'>
-                    <div className='bg-[#2da74b] hover:bg-[#255e33] text-white font-bold py-2 px-4 rounded cursor-pointer' onClick={handleUpdate}>Update</div>
-                    <div className='bg-red-600 hover:bg-red-800 text-white font-bold py-2 px-4 rounded cursor-pointer' onClick={handleDelete}>Delete</div>
+                    <div onClick={sendUpdateData} className='bg-[#2da74b] hover:bg-[#255e33] text-white font-bold py-2 px-4 rounded cursor-pointer'>Update</div>
+                    <div onClick={sendDeleteData} className='bg-red-600 hover:bg-red-800 text-white font-bold py-2 px-4 rounded cursor-pointer'>Delete</div>
                 </div>
             </div>
         </div>
