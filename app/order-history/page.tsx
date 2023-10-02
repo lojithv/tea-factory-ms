@@ -31,7 +31,7 @@ const page = (props: Props) => {
                 }
             })
         }
-    }, [user])
+    }, [user])  
     return (
         <>
             <div className="flex mb-4">
