@@ -108,7 +108,40 @@ const Employee = (props: Props) => {
 
         fetchData();
     }, [state]);
+    const handleDeleteEmployee = async (userId: string) => {
+        try {
+            const { error } = await supabase
+                .from('users')
+                .delete()
+                .eq('userid', userId)
 
+            if (error) {
+                setError(error.message);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: error.message,
+                    confirmButtonColor: '#2da74b'
+                })
+            } else {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success',
+                    text: 'Delete Successfully',
+                    confirmButtonColor: '#2da74b'
+                })
+                setState(!state)
+            }
+        } catch (error) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: "Network error",
+                confirmButtonColor: '#2da74b'
+            })
+        }
+
+    };
     return (
         <>
             <div className="flex mb-4">
@@ -218,7 +251,7 @@ const Employee = (props: Props) => {
                         )}
                     </div>
                     {users?.map((user: any, index: any) => (
-                        <UserCard key={index} index={index} user={user} isDelete={true} />
+                        <UserCard key={index} index={index} user={user} isDelete={true} onDeleteUser={handleDeleteEmployee} />
                     ))}
                 </div>
                 <div className="w-1/4  h-auto"></div>

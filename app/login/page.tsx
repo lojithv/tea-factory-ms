@@ -1,5 +1,6 @@
 "use client"
 
+import { userDetailsSubject, userSubject } from '@/context/UserData'
 import useUser from '@/hooks/useUser'
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import { Bitter, DM_Serif_Display } from 'next/font/google'
@@ -31,15 +32,17 @@ const Login = (props: Props) => {
             password,
         }).then((res) => {
             console.log(res)
+            userSubject.next(res.data.user)
             if (!res.error) {
                 supabase.from('users').select().eq('userid', res.data.user.id).then((res1) => {
                     console.log(res1.data)
                     if (res1.data) {
                         const user = res1.data[0]
+                        userDetailsSubject.next(user)
                         if (user.usertype == 'admin') {
                             router.push('/admin-dashboard')
                         } else if (user.usertype == 'customer') {
-                            router.push('/customer-dashboard')
+                            router.push('/products')
                         } else if (user.usertype == 'employee') {
                             router.push('/employee-dashboard')
                         }

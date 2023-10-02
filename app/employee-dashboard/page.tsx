@@ -24,7 +24,7 @@ const EmployeeDashboard = (props: Props) => {
     const user = useUser()
     const supabase = createClientComponentClient()
     const [error, setError] = useState<any>(null);
-    console.log("user===>",user)
+    console.log("user===>", user)
 
     const handleRouteSelect = (e: any) => {
         setSelectedRoute(e.target.value)
@@ -34,10 +34,14 @@ const EmployeeDashboard = (props: Props) => {
         try {
             const { data, error } = await supabase
                 .from('routes')
-                .insert([
-                    { path: selectedRoute, created_userid: user?.userDetails?.userid },
-                ])
+                .upsert([
+                    {
+                        path: selectedRoute,
+                        created_userid: user?.userDetails?.userid,
+                    },
+                ], { onConflict: 'created_userid' })
                 .select();
+
 
             if (error) {
                 setError(error.message);
