@@ -34,12 +34,19 @@ const Navbar = (props: Props) => {
 
     useEffect(() => {
         console.log("route change.......")
+        userDetailsSubject.subscribe((userData) => {
+            if (userData) {
+                setUserType(userData.usertype)
+            } else {
+                setUserType('')
+            }
+        })
         console.log(user)
-        if (user) {
-            setUserType(user.userDetails.usertype)
-        } else {
-            setUserType('')
-        }
+        // if (user) {
+        //     setUserType(user.userDetails.usertype)
+        // } else {
+        //     setUserType('')
+        // }
 
         if (currentPage === '/') {
             if (user && user.userDetails.usertype === 'employee') {
@@ -52,7 +59,7 @@ const Navbar = (props: Props) => {
                 router.replace('/')
             }
         }
-    }, [userSubject, currentPage])
+    }, [currentPage])
 
     const handleLogout = () => {
         supabase.auth.signOut()

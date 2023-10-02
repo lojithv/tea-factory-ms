@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 
 type Props = {}
 
-const useUser = (refresh?: any) => {
+const useUser = () => {
     // const [user, setUser] = useState(null as any);
     // const [userDetails, setUserDetails] = useState(null as any);
 
@@ -25,7 +25,7 @@ const useUser = (refresh?: any) => {
                 userSubject.next(null)
             }
         })
-    }, [refresh])
+    }, [])
 
     if (userSubject && userDetailsSubject && userSubject.value && userDetailsSubject.value) {
         return { user: userSubject.value, userDetails: userDetailsSubject.value }
