@@ -39,7 +39,7 @@ const Login = (props: Props) => {
                         if (user.usertype == 'admin') {
                             router.push('/admin-dashboard')
                         } else if (user.usertype == 'customer') {
-                            router.push('/customer-dashboard')
+                            router.push('/products')
                         } else if (user.usertype == 'employee') {
                             router.push('/employee-dashboard')
                         }
