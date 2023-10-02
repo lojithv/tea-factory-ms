@@ -69,83 +69,103 @@ function ManageProducts({ }: Props) {
     };
 
     const handleAddProduct = async () => {
-        try {
-            const { data, error } = await supabase
-                .from('products')
-                .insert([
-                    { image: image, name: name, price: price, quantity: quantity, type: type },
-                ])
-                .select();
-
-            if (error) {
-                setError(error.message);
+        if (image && name && price && quantity && type){
+            try {
+                const { data, error } = await supabase
+                    .from('products')
+                    .insert([
+                        { image: image, name: name, price: price, quantity: quantity, type: type },
+                    ])
+                    .select();
+    
+                if (error) {
+                    setError(error.message);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: error.message,
+                        confirmButtonColor: '#2da74b'
+                    })
+                } else {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        text: 'Successfully Added',
+                        confirmButtonColor: '#2da74b'
+                    })
+                    setState(!state)
+                    togglePopup()
+                }
+            } catch (error) {
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
-                    text: error.message,
+                    text: "Network error",
                     confirmButtonColor: '#2da74b'
                 })
-            } else {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Success',
-                    text: 'Successfully Added',
-                    confirmButtonColor: '#2da74b'
-                })
-                setState(!state)
-                togglePopup()
             }
-        } catch (error) {
+        }else{
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
-                text: "Network error",
+                text: "Please fill the all data",
                 confirmButtonColor: '#2da74b'
             })
         }
+        
     };
     const handleUpdateProductData = async () => {
-        try {
-            const { data, error } = await supabase
-                .from('products')
-                .update([
-                    { image: image, name: name, price: price, quantity: quantity, type: type },
-                ])
-                .eq('id', productId)
-                .select();
-
-            if (error) {
-                setError(error.message);
+        if (image && name && price && quantity && type){
+            try {
+                const { data, error } = await supabase
+                    .from('products')
+                    .update([
+                        { image: image, name: name, price: price, quantity: quantity, type: type },
+                    ])
+                    .eq('id', productId)
+                    .select();
+    
+                if (error) {
+                    setError(error.message);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: error.message,
+                        confirmButtonColor: '#2da74b'
+                    })
+                } else {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        text: 'Successfully Updated',
+                        confirmButtonColor: '#2da74b'
+                    })
+                    setState(!state)
+                    togglePopup()
+                    setIsUpdate(false)
+                    setQuantity("")
+                    setType("")
+                    setName("")
+                    setImage("")
+                    setPrice("")
+                }
+            } catch (error) {
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
-                    text: error.message,
+                    text: "Network error",
                     confirmButtonColor: '#2da74b'
                 })
-            } else {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Success',
-                    text: 'Successfully Updated',
-                    confirmButtonColor: '#2da74b'
-                })
-                setState(!state)
-                togglePopup()
-                setIsUpdate(false)
-                setQuantity("")
-                setType("")
-                setName("")
-                setImage("")
-                setPrice("")
             }
-        } catch (error) {
+        }else{
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
-                text: "Network error",
+                text: "Please fill the all data",
                 confirmButtonColor: '#2da74b'
             })
         }
+       
     }
     useEffect(() => {
         async function fetchData() {
