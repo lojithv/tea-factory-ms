@@ -36,23 +36,23 @@ const OrderedCard: React.FC<UserProps> = ({ order, index }) => {
     const formattedDate = moment(order.created_at).format('MMMM Do YYYY');
 
     return (
-        <div key={index} className={` w-full p-2 mb-1 mt-1 bg-white border border-gray-200 rounded-lg shadow sm:p-4 dark:bg-gray-800 dark:border-gray-700`}>
+        <div key={index} className={` w-full p-2 mb-1 mt-1 bg-white border border-gray-200 rounded-lg shadow sm:p-4 `}>
             <div className="flow-root">
                 <table className="table-fixed min-w-full">
                     <thead>
                         <tr>
                             <td className='w-2/4'>
-                                <p className={`${dmSerifDisplay.className} text-sm font-medium text-gray-900 truncate dark:text-white`}>
+                                <p className={`${dmSerifDisplay.className} text-sm font-medium text-gray-900 truncate `}>
                                     Items
                                 </p>
                             </td>
                             <td className='w-1/4'>
-                                <p className={`${dmSerifDisplay.className} text-sm font-medium text-gray-900 truncate dark:text-white`}>
+                                <p className={`${dmSerifDisplay.className} text-sm font-medium text-gray-900 truncate `}>
                                     Quantity
                                 </p>
                             </td>
                             <td className='w-1/4'>
-                                <p className={`${dmSerifDisplay.className} text-sm font-medium text-gray-900 truncate dark:text-white`}>
+                                <p className={`${dmSerifDisplay.className} text-sm font-medium text-gray-900 truncate `}>
                                     Price
                                 </p>
                             </td>
@@ -62,17 +62,17 @@ const OrderedCard: React.FC<UserProps> = ({ order, index }) => {
                         {items?.map((item: any, index: number) => (
                             <tr key={index}>
                                 <td >
-                                    <p className={`${dmSerifDisplay.className} text-sm text-gray-500 truncate dark:text-gray-400`}>
+                                    <p className={`${dmSerifDisplay.className} text-sm text-gray-500 truncate `}>
                                         {item?.product || item?.name}
                                     </p>
                                 </td>
                                 <td>
-                                    <p className={`${dmSerifDisplay.className} text-sm text-gray-500 truncate dark:text-gray-400`}>
+                                    <p className={`${dmSerifDisplay.className} text-sm text-gray-500 truncate `}>
                                         {item?.qty}
                                     </p>
                                 </td>
                                 <td>
-                                    <p className={`${dmSerifDisplay.className} text-sm text-gray-500 truncate dark:text-gray-400`}>
+                                    <p className={`${dmSerifDisplay.className} text-sm text-gray-500 truncate `}>
                                         Rs. {item?.price}
                                     </p>
                                 </td>
@@ -80,13 +80,13 @@ const OrderedCard: React.FC<UserProps> = ({ order, index }) => {
                         ))}
                         <tr>
                             <td >
-                                <p className={`${dmSerifDisplay.className} mt-4 text-sm font-medium text-gray-900 truncate dark:text-white`}>
+                                <p className={`${dmSerifDisplay.className} mt-4 text-sm font-medium text-gray-900 truncate `}>
                                     Total
                                 </p>
                             </td>
                             <td></td>
                             <td>
-                                <p className={`${dmSerifDisplay.className} text-sm font-medium text-gray-900 truncate dark:text-white`}>
+                                <p className={`${dmSerifDisplay.className} text-sm font-medium text-gray-900 truncate `}>
                                     Rs. {order.total}
                                 </p>
                             </td>
@@ -95,7 +95,7 @@ const OrderedCard: React.FC<UserProps> = ({ order, index }) => {
                 </table>
             </div>
             <div>
-                <p className={`${dmSerifDisplay.className} mt-4 text-sm text-center font-medium text-gray-500 truncate dark:text-white`}>
+                <p className={`${dmSerifDisplay.className} mt-4 text-sm text-center font-medium text-gray-500 truncate `}>
                     Ordered Date: {formattedDate}
                 </p>
             </div>
