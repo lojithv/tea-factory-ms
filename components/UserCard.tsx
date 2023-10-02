@@ -15,8 +15,9 @@ interface UserProps {
     user: any;
     index: number;
     isDelete: boolean;
+    onDeleteUser: (data: string) => void;
 }
-const UserCard: React.FC<UserProps> = ({ user, index, isDelete }) => {
+const UserCard: React.FC<UserProps> = ({ user, index, isDelete , onDeleteUser}) => {
 
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     // const router = useRouter();
@@ -29,6 +30,9 @@ const UserCard: React.FC<UserProps> = ({ user, index, isDelete }) => {
             localStorage.setItem('ClickedUserId', userId);
         }
     }
+    const sendDeleteUserId = (userId:any) => {
+        onDeleteUser(userId);
+      };
     return (
         <a href={isDelete?'#':'/single-tea-collector'} onClick={()=> handleClickCard(user?.userid)} key={index} className={`cursor-pointer w-full p-2 mb-1 mt-1 bg-white border border-gray-200 rounded-lg shadow sm:p-4 dark:bg-gray-800 dark:border-gray-700`}>
             <div className="flow-root">
@@ -54,7 +58,7 @@ const UserCard: React.FC<UserProps> = ({ user, index, isDelete }) => {
                             {
                                 isDelete && (
                                     <div className="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                                        <button className={`${dmSerifDisplay.className} bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full`}>
+                                        <button onClick={() =>sendDeleteUserId(user?.userid)} className={`${dmSerifDisplay.className} bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full`}>
                                             Delete
                                         </button>
                                     </div>
