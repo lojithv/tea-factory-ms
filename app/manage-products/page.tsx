@@ -25,6 +25,7 @@ function ManageProducts({ }: Props) {
     const [image, setImage] = useState('')
     const [name, setName] = useState('')
     const [type, setType] = useState('')
+    const [productId, setProductId] = useState('')
     const [quantity, setQuantity] = useState('')
     const router = useRouter()
     const supabase = createClientComponentClient()
@@ -34,11 +35,18 @@ function ManageProducts({ }: Props) {
     const [error, setError] = useState<any>(null);
     const [state, setState] = useState<boolean>(false);
     const [selectedTab, setSelectedTab] = useState(1)
+    const [isUpdate, setIsUpdate] = useState<boolean>(false);
 
     useEffect(() => {
         const closePopupOnOutsideClick = (event: any) => {
             if (isOpen && event.target && !event.target.closest('.modal-container')) {
                 setIsOpen(false);
+                setIsUpdate(false)
+                setQuantity("")
+                setType("")
+                setName("")
+                setImage("")
+                setPrice("")
             }
         };
         document.addEventListener('click', closePopupOnOutsideClick);
@@ -50,63 +58,115 @@ function ManageProducts({ }: Props) {
 
     const togglePopup = () => {
         setIsOpen(!isOpen);
-    };
-
-    // const fertilizer = [
-    //     { path: "/Fertilizer/1- Organic Manure - 5kg - Rs.250.jpg", name: "Organic Manure - 5kg", price: 250 },
-    //     { path: "/Fertilizer/2- Organic Manure - 10kg - Rs.500.jpg", name: "Organic Manure - 10kg", price: 500 },
-    //     { path: "/Fertilizer/3-Dolamite - 10kg - Rs.500.jpg", name: "Dolamite - 10kg", price: 500 },
-    //     { path: "/Fertilizer/4- T-65 - 50kg - Rs.1500.png", name: "T-65 - 50kg", price: 1500 },
-    //     { path: "/Fertilizer/5-T-200 - 50kg - Rs.1500.png", name: "T-200 - 50kg", price: 1500 },
-    //     { path: "/Fertilizer/6- U-709 - 50kg - Rs.1500.png", name: "U-709 - 50kg", price: 1500 },
-    //     { path: "/Fertilizer/7- T-65 - 10kg- Rs.300.jpg", name: "T-65 - 10kg", price: 300 },
-    //     { path: "/Fertilizer/8- T-200 - 10kg - Rs.300.jpg", name: "T-200 - 10kg", price: 300 },
-    //     { path: "/Fertilizer/9- U-709 - 10kg-Rs.300.jpg", name: "U-709 - 10kg", price: 300 },
-    //     { path: "/Fertilizer/10- UT-752 - 10kg- Rs.300.jpg", name: "UT-752 - 10kg", price: 300 },
-    // ]
-    // const teaPowder = [
-    //     { path: "/Tea Powder/1-Evergreen Tea Powder - 400g - Rs.650.jpg", name: "Evergreen Tea Powder - 400g", price: 650 },
-    //     { path: "/Tea Powder/2- Evergreen Brombil Tea - 400g - Rs.790.jpg", name: "Evergreen Brombil Tea - 400g", price: 790 },
-    //     { path: "/Tea Powder/3- Evergreen Tea Powder - 1kg - Rs.1600.jpg", name: "Evergreen Tea Powder - 1kg", price: 1600 },
-    //     { path: "/Tea Powder/4- Evergreen Tea Powder - 2kg - Rs.3100.jpg", name: "Evergreen Tea Powder - 2kg", price: 3100 },
-    // ]
-    const handleAddProduct = async () => {
-        try {
-            const { data, error } = await supabase
-                .from('products')
-                .insert([
-                    { image: image, name: name, price: price, quantity: quantity, type: type },
-                ])
-                .select();
-
-            if (error) {
-                setError(error.message);
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: error.message,
-                    confirmButtonColor: '#2da74b'
-                })
-            } else {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Success',
-                    text: 'Successfully Added',
-                    confirmButtonColor: '#2da74b'
-                })
-                setState(!state)
-                togglePopup()
-            }
-        } catch (error) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: "Network error",
-                confirmButtonColor: '#2da74b'
-            })
+        if (isOpen) {
+            setIsUpdate(false)
+            setQuantity("")
+            setType("")
+            setName("")
+            setImage("")
+            setPrice("")
         }
     };
 
+    const handleAddProduct = async () => {
+        if (image && name && price && quantity && type) {
+            try {
+                const { data, error } = await supabase
+                    .from('products')
+                    .insert([
+                        { image: image, name: name, price: price, quantity: quantity, type: type },
+                    ])
+                    .select();
+
+                if (error) {
+                    setError(error.message);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: error.message,
+                        confirmButtonColor: '#2da74b'
+                    })
+                } else {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        text: 'Successfully Added',
+                        confirmButtonColor: '#2da74b'
+                    })
+                    setState(!state)
+                    togglePopup()
+                }
+            } catch (error) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: "Network error",
+                    confirmButtonColor: '#2da74b'
+                })
+            }
+        } else {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: "Please fill the all data",
+                confirmButtonColor: '#2da74b'
+            })
+        }
+
+    };
+    const handleUpdateProductData = async () => {
+        if (image && name && price && quantity && type) {
+            try {
+                const { data, error } = await supabase
+                    .from('products')
+                    .update([
+                        { image: image, name: name, price: price, quantity: quantity, type: type },
+                    ])
+                    .eq('id', productId)
+                    .select();
+
+                if (error) {
+                    setError(error.message);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: error.message,
+                        confirmButtonColor: '#2da74b'
+                    })
+                } else {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        text: 'Successfully Updated',
+                        confirmButtonColor: '#2da74b'
+                    })
+                    setState(!state)
+                    togglePopup()
+                    setIsUpdate(false)
+                    setQuantity("")
+                    setType("")
+                    setName("")
+                    setImage("")
+                    setPrice("")
+                }
+            } catch (error) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: "Network error",
+                    confirmButtonColor: '#2da74b'
+                })
+            }
+        } else {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: "Please fill the all data",
+                confirmButtonColor: '#2da74b'
+            })
+        }
+
+    }
     useEffect(() => {
         async function fetchData() {
             try {
@@ -128,6 +188,52 @@ function ManageProducts({ }: Props) {
 
         fetchData();
     }, [state]);
+
+    const handleUpdateProduct = (image: string, name: string, price: string, quantity: string, type: string, productId: string) => {
+        setQuantity(quantity)
+        setType(type)
+        setName(name)
+        setImage(image)
+        setPrice(price)
+        setProductId(productId)
+        setIsUpdate(true)
+        setIsOpen(true)
+    };
+    const handleDeleteProduct = async (productId: any) => {
+        try {
+
+            const { error } = await supabase
+                .from('products')
+                .delete()
+                .eq('id', productId)
+
+
+            if (error) {
+                setError(error.message);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: error.message,
+                    confirmButtonColor: '#2da74b'
+                })
+            } else {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success',
+                    text: 'Deleted Successfully',
+                    confirmButtonColor: '#2da74b'
+                })
+                setState(!state)
+            }
+        } catch (error) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: "Network error",
+                confirmButtonColor: '#2da74b'
+            })
+        }
+    }
     return (
         <>
             <div className='flex flex-grow items-center'>
@@ -169,7 +275,7 @@ function ManageProducts({ }: Props) {
                                         </div>
                                         <div className="flex flex-grow flex-col justify-center px-6 py-6 lg:px-8">
                                             <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-                                                <h2 className={`text-center text-2xl font-bold leading-9 tracking-tight ${dmSerifDisplay.className} text-[#2da74b]`}>Add new employee</h2>
+                                                <h2 className={`text-center text-2xl font-bold leading-9 tracking-tight ${dmSerifDisplay.className} text-[#2da74b]`}>{isUpdate ? "Update new product" : "Add new product"}</h2>
                                             </div>
 
                                             <div className={`mt-10 sm:mx-auto sm:w-full sm:max-w-sm ${bitter.className}`}>
@@ -177,20 +283,20 @@ function ManageProducts({ }: Props) {
                                                     <div>
                                                         <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">Upload Image Url</label>
                                                         <div className="mt-2">
-                                                            <input id="image" name="image" type="text" onChange={(e) => setImage(e.target.value)} required className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                                                            <input id="image" name="image" type="text" value={image} onChange={(e) => setImage(e.target.value)} required className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
                                                         </div>
                                                     </div>
 
                                                     <div>
                                                         <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">Name</label>
                                                         <div className="mt-2">
-                                                            <input id="name" name="name" type="text" autoComplete="email" required onChange={(e) => setName(e.target.value)} className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                                                            <input id="name" name="name" type="text" value={name} autoComplete="name" required onChange={(e) => setName(e.target.value)} className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
                                                         </div>
                                                     </div>
                                                     <div>
                                                         <div className="flex items-center justify-between">
                                                             <label htmlFor="quantity" className="block text-sm font-medium leading-6 text-gray-900">
-                                                                Quantity
+                                                                Type
                                                             </label>
                                                         </div>
                                                         <div className="mt-2">
@@ -199,6 +305,7 @@ function ManageProducts({ }: Props) {
                                                                 name="quantity"
                                                                 onChange={(e) => setType(e.target.value)}
                                                                 required
+                                                                value={type}
                                                                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                                             >
                                                                 <option value="fertiliser">fertiliser</option>
@@ -212,7 +319,7 @@ function ManageProducts({ }: Props) {
                                                             <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">Price</label>
                                                         </div>
                                                         <div className="mt-2">
-                                                            <input id="price" name="price" type="number" autoComplete="current-password" onChange={(e) => setPrice(e.target.value)} required className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                                                            <input id="price" name="price" type="number" autoComplete="current-password" value={price} onChange={(e) => setPrice(e.target.value)} required className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
                                                         </div>
                                                     </div>
 
@@ -221,12 +328,18 @@ function ManageProducts({ }: Props) {
                                                             <label htmlFor="confirmpassword" className="block text-sm font-medium leading-6 text-gray-900">Quantity</label>
                                                         </div>
                                                         <div className="mt-2">
-                                                            <input id="quantity" name="quantity" type="number" onChange={(e) => setQuantity(e.target.value)} required className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                                                            <input id="quantity" name="quantity" type="number" value={quantity} onChange={(e) => setQuantity(e.target.value)} required className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
                                                         </div>
                                                     </div>
 
                                                     <div>
-                                                        <button onClick={handleAddProduct} className="flex w-full justify-center rounded-md bg-[#2da74b] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#24555c] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#285d64]">Add product</button>
+                                                        {
+                                                            isUpdate ?
+                                                                <button onClick={handleUpdateProductData} className="flex w-full justify-center rounded-md bg-[#2da74b] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#24555c] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#285d64]">Update product</button>
+                                                                :
+                                                                <button onClick={handleAddProduct} className="flex w-full justify-center rounded-md bg-[#2da74b] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#24555c] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#285d64]">Add product</button>
+                                                        }
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -243,14 +356,14 @@ function ManageProducts({ }: Props) {
                     {selectedTab == 1 && (
                         <div className='flex flex-wrap gap-5 justify-center p-10'>
                             {fertilizer?.map((item: any, i: any) => (
-                                <ProductItem key={i} image={item.path} name={item.name} price={item.price} quantity={item.quantity} />
+                                <ProductItem key={i} onDeleteProduct={handleDeleteProduct} id={item.id} type={item.type} onUpdateProduct={handleUpdateProduct} image={item.path} name={item.name} price={item.price} quantity={item.quantity} />
                             ))}
                         </div>
                     )}
                     {selectedTab == 2 && (
                         <div className='flex flex-wrap gap-5 justify-center p-10'>
                             {teaPowder?.map((item: any, i: any) => (
-                                <ProductItem key={i} image={item.path} name={item.name} price={item.price} quantity={item.quantity} />
+                                <ProductItem key={i} onDeleteProduct={handleDeleteProduct} id={item.id} type={item.type} onUpdateProduct={handleUpdateProduct} image={item.path} name={item.name} price={item.price} quantity={item.quantity} />
                             ))}
                         </div>
                     )}

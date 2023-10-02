@@ -1,5 +1,6 @@
 "use client"
 
+import { userDetailsSubject, userSubject } from '@/context/UserData'
 import useUser from '@/hooks/useUser'
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import { Abril_Fatface, DM_Serif_Display, Domine } from 'next/font/google'
@@ -21,44 +22,52 @@ const userTypes = {
 }
 
 const Navbar = (props: Props) => {
+    const user = useUser()
 
     const [userType, setUserType] = useState('')
 
     const router = useRouter()
-
-    const user = useUser()
 
     const currentPage = usePathname()
 
     const supabase = createClientComponentClient()
 
     useEffect(() => {
-        if (user) {
-            setUserType(user.userDetails.usertype)
-        } else {
-            setUserType('')
-        }
+        console.log("route change.......")
+        userDetailsSubject.subscribe((userData) => {
+            if (userData) {
+                setUserType(userData.usertype)
+            } else {
+                setUserType('')
+            }
+        })
+        console.log(user)
+        // if (user) {
+        //     setUserType(user.userDetails.usertype)
+        // } else {
+        //     setUserType('')
+        // }
 
         if (currentPage === '/') {
             if (user && user.userDetails.usertype === 'employee') {
-                router.push('/employee-dashboard')
+                router.replace('/employee-dashboard')
             } else if (user && user.userDetails.usertype === 'customer') {
-                router.push('/user-details')
+                router.replace('/user-details')
             } else if (user && user.userDetails.usertype === 'admin') {
-                router.push('/admin-dashboard')
+                router.replace('/admin-dashboard')
             } else {
-                router.push('/')
+                router.replace('/')
             }
         }
-    }, [user])
+    }, [currentPage])
 
     const handleLogout = () => {
         supabase.auth.signOut()
-        setUserType('')
-        router.push('/login')
+        router.replace('/login')
+        userSubject.next(null)
+        userDetailsSubject.next(null)
         console.log('handle logout')
     }
-
 
     return (
         <div className={`w-full flex items-center justify-between ${dmSerifDisplay.className} text-[#2c666eff] p-5`}>
@@ -76,7 +85,7 @@ const Navbar = (props: Props) => {
                 )}
                 {userType && userType == 'customer' && (
                     <>
-                        <Link href={'/customer-dashboard'}><div className='hover:text-[#2da74b]'>Dashboard</div></Link>
+                        {/* <Link href={'/customer-dashboard'}><div className='hover:text-[#2da74b]'>Dashboard</div></Link> */}
                         <Link href={'/products'}><div className='hover:text-[#2da74b]'>Products</div></Link>
                         <Link href={'/tea-collectors'}><div className='hover:text-[#2da74b]'>Tea Collectors</div></Link>
                         <Link href={'/cart'}><div className='hover:text-[#2da74b]'>Cart</div></Link>
