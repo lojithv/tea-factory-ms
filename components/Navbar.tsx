@@ -1,5 +1,6 @@
 "use client"
 
+import { userDetailsSubject, userSubject } from '@/context/UserData'
 import useUser from '@/hooks/useUser'
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import { Abril_Fatface, DM_Serif_Display, Domine } from 'next/font/google'
@@ -21,18 +22,19 @@ const userTypes = {
 }
 
 const Navbar = (props: Props) => {
+    const user = useUser()
 
     const [userType, setUserType] = useState('')
 
     const router = useRouter()
-
-    const user = useUser()
 
     const currentPage = usePathname()
 
     const supabase = createClientComponentClient()
 
     useEffect(() => {
+        console.log("route change.......")
+        console.log(user)
         if (user) {
             setUserType(user.userDetails.usertype)
         } else {
@@ -41,24 +43,24 @@ const Navbar = (props: Props) => {
 
         if (currentPage === '/') {
             if (user && user.userDetails.usertype === 'employee') {
-                router.push('/employee-dashboard')
+                router.replace('/employee-dashboard')
             } else if (user && user.userDetails.usertype === 'customer') {
-                router.push('/user-details')
+                router.replace('/user-details')
             } else if (user && user.userDetails.usertype === 'admin') {
-                router.push('/admin-dashboard')
+                router.replace('/admin-dashboard')
             } else {
-                router.push('/')
+                router.replace('/')
             }
         }
-    }, [user])
+    }, [userSubject, currentPage])
 
     const handleLogout = () => {
         supabase.auth.signOut()
-        setUserType('')
-        router.push('/login')
+        router.replace('/login')
+        userSubject.next(null)
+        userDetailsSubject.next(null)
         console.log('handle logout')
     }
-
 
     return (
         <div className={`w-full flex items-center justify-between ${dmSerifDisplay.className} text-[#2c666eff] p-5`}>
