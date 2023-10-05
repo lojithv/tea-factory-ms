@@ -59,7 +59,7 @@ const Navbar = (props: Props) => {
                 router.replace('/')
             }
         }
-    }, [currentPage])
+    }, [currentPage, user])
 
     const handleLogout = () => {
         supabase.auth.signOut()
