@@ -33,13 +33,13 @@ const EmployeeDashboard = (props: Props) => {
     const addRoute = async () => {
         try {
             const { data, error } = await supabase
-                .from('routes')
+                .from('tea_collectors')
                 .upsert([
                     {
-                        path: selectedRoute,
-                        created_userid: user?.userDetails?.userid,
+                        route: selectedRoute,
+                        employee_id: user?.userDetails?.userid,
                     },
-                ], { onConflict: 'created_userid' })
+                ], { onConflict: 'employee_id' })
                 .select();
 
 

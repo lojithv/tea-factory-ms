@@ -1,6 +1,6 @@
 "use client"
 
-import UserCard from '@/components/UserCard'
+import TeaCollectorCard from '@/components/TeaCollectorCard'
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import { Bitter, DM_Serif_Display } from 'next/font/google'
 import { useRouter } from 'next/navigation'
@@ -37,9 +37,8 @@ const TeaCollectors = (props: Props) => {
         async function fetchData() {
             try {
                 const { data, error } = await supabase
-                    .from('users')
-                    .select('*')
-                    .eq('usertype', 'employee');
+                    .from('tea_collectors')
+                    .select(`*, users (*)`)
 
                 if (error) {
                     setError(error);
@@ -61,7 +60,7 @@ const TeaCollectors = (props: Props) => {
                     <div className={`font-bold ${dmSerifDisplay.className} text-[48px] text-[#2da74b] mb-2`}>Tea collectors</div>
 
                     {users?.map((user: any, index: any) => (
-                        <UserCard key={index} index={index} user={user} isDelete={false} />
+                        <TeaCollectorCard key={index} index={index} user={user.users} route={user.route} isDelete={false} />
                     ))}
                 </div>
                 <div className="w-1/4  h-auto"></div>

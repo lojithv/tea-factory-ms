@@ -3,7 +3,7 @@
 import useUser from '@/hooks/useUser'
 import { Mail, MapPin, Phone, UserCircle2 } from 'lucide-react'
 import { Bitter, DM_Serif_Display } from 'next/font/google'
-import React,{useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 
 type Props = {}
@@ -22,6 +22,8 @@ const SingleEmoplyee = (props: Props) => {
     const [user, setUser] = useState<any>();
     const [error, setError] = useState<any>();
     const [userId, setUserId] = useState<any>();
+
+    const [route, setRoute] = useState('')
     const supabase = createClientComponentClient()
 
     useEffect(() => {
@@ -31,15 +33,16 @@ const SingleEmoplyee = (props: Props) => {
         async function fetchData() {
             try {
                 const { data, error } = await supabase
-                    .from('users')
-                    .select('*')
-                    .eq('userid', ClickedUserId);
+                    .from('tea_collectors')
+                    .select('*, users (*)')
+                    .eq('employee_id', ClickedUserId);
 
                 if (error) {
                     setError(error);
                 } else {
-                    setUser(data[0]);
-                    console.log("data========>",data)
+                    setUser(data[0].users);
+                    setRoute(data[0].route)
+                    console.log("data========>", data)
                 }
             } catch (error) {
                 setError(error);
@@ -47,7 +50,7 @@ const SingleEmoplyee = (props: Props) => {
         }
 
         fetchData();
-      }, []);
+    }, []);
 
     return (
         <div className="flex flex-grow items-center">
@@ -57,9 +60,9 @@ const SingleEmoplyee = (props: Props) => {
             <div className="flex h-full w-1/2 flex-col items-start justify-center px-10">
                 <div className={`font-bold ${dmSerifDisplay.className} text-[48px] text-[#2da74b]`}>Profile</div>
                 <div className={`${bitter.className} mt-10`}>
-                    <div className='flex font-bold gap-2 text-[#2da74b]'><MapPin />Address:</div>
+                    <div className='flex font-bold gap-2 text-[#2da74b]'><MapPin />Route:</div>
                     <div>
-                        {user?.address}
+                        {route}
                     </div>
                     <div className='flex font-bold mt-5 gap-2 text-[#2da74b]'><UserCircle2 />Name:</div>
                     <div>
@@ -69,10 +72,10 @@ const SingleEmoplyee = (props: Props) => {
                     <div>
                         {user?.phonenumber}
                     </div>
-                    <div className='flex font-bold mt-5 gap-2 text-[#2da74b]'><Mail />Email:</div>
+                    {/* <div className='flex font-bold mt-5 gap-2 text-[#2da74b]'><Mail />Route:</div>
                     <div>
-                        {user?.email}
-                    </div>
+                        {route}
+                    </div> */}
 
 
 
