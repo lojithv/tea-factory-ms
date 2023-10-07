@@ -41,15 +41,42 @@ const SupplierHistory = (props: Props) => {
 
         fetchData();
     }, []);
-
     return (
         <>
             <div className="flex mb-4">
                 <div className="w-1/4  h-auto"></div>
                 <div className="w-2/4  h-auto flex flex-col items-center">
                     <div className={`font-bold ${dmSerifDisplay.className} text-[48px] text-[#2da74b] mb-2`}>Supplier History</div>
-                    {supplyHistory.map((item, i) => {
-                        return <div key={i}>{item.amount}</div>
+                    {supplyHistory?.map((item, i) => {
+                        return (
+                            <div key={i} className={`cursor-pointer w-full p-2 mb-1 mt-1 bg-white border border-gray-200 rounded-lg shadow sm:p-4`}>
+                                <div className="flow-root">
+                                    <ul role="list" className="divide-y divide-gray-200 dark:divide-gray-700">
+                                        <li className="py-3 sm:py-4">
+                                            <div className="flex items-center space-x-4">
+                                                <div className="flex-1 min-w-0">
+                                                    <p className={`${dmSerifDisplay.className} text-sm font-medium text-gray-900 truncate `}>
+                                                        {item?.users.fullname}
+                                                    </p>
+                                                    <p className={`${dmSerifDisplay.className} text-sm text-gray-500 truncate `}>
+                                                        {item?.customer_id}
+                                                    </p>
+                                                </div>
+                                                <div className="flex-1 min-w-0" >
+                                                    <p className={`${dmSerifDisplay.className} text-sm font-medium text-gray-900 truncate `}>
+                                                        Price: Rs.{item?.price}.00
+                                                    </p>
+                                                    <p className={`${dmSerifDisplay.className} text-sm text-gray-500 truncate `}>
+                                                        Amount: {item?.amount}
+                                                    </p>
+                                                </div>
+
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        )
                     })}
                 </div>
                 <div className="w-1/4  h-auto"></div>
