@@ -18,7 +18,7 @@ const Product = (props: Props) => {
 
     const currentUser = useContext(AuthContext);
 
-    console.log("currentUser==>",currentUser)
+    console.log("currentUser==>", currentUser)
 
     const handleAddToCart = async () => {
         if (!currentUser) {
@@ -31,6 +31,7 @@ const Product = (props: Props) => {
         } else {
             supabase.from('carts').insert({ userid: currentUser.user.id, product: props.name, price: props.price, qty: 1 }).then((res) => {
                 console.log(res.data)
+                Swal.fire("Added to Cart!", "", 'success')
             })
         }
     }

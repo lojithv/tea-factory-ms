@@ -3,6 +3,7 @@ import UserCard from '@/components/UserCard'
 import { Bitter, DM_Serif_Display } from 'next/font/google'
 import React, { useState, useEffect } from 'react'
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
+import moment from 'moment'
 
 type Props = {}
 
@@ -59,10 +60,10 @@ const SupplierHistory = (props: Props) => {
                                                         {item?.users.fullname}
                                                     </p>
                                                     <p className={`${dmSerifDisplay.className} text-sm text-gray-500 truncate `}>
-                                                        {item?.customer_id}
+                                                        {moment(item?.created_at).format('MMMM Do YYYY')}
                                                     </p>
                                                 </div>
-                                                <div className="flex-1 min-w-0" >
+                                                <div className="flex-1 min-w-0 text-right" >
                                                     <p className={`${dmSerifDisplay.className} text-sm font-medium text-gray-900 truncate `}>
                                                         Price: Rs.{item?.price}.00
                                                     </p>
