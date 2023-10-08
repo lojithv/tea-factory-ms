@@ -68,7 +68,7 @@ const SupplierHistory = (props: Props) => {
                                                         Price: Rs.{item?.price}.00
                                                     </p>
                                                     <p className={`${dmSerifDisplay.className} text-sm text-gray-500 truncate `}>
-                                                        Amount: {item?.amount}
+                                                        Amount: {item?.amount} Kg
                                                     </p>
                                                 </div>
 
