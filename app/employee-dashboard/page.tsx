@@ -75,7 +75,7 @@ const EmployeeDashboard = (props: Props) => {
                 <h2 className={`mt-10 text-center text-2xl font-bold leading-9 tracking-tight ${dmSerifDisplay.className} text-[#2da74b]`}>Select Route</h2>
             </div>
             <div className='w-full flex justify-center'>
-                <select className='w-fit' value={selectedRoute} onChange={handleRouteSelect}>
+                <select className='w-fit border border-black rounded-md' value={selectedRoute} onChange={handleRouteSelect}>
                     <option value="none">None</option>
                     <option value="Thalagaspe - Katandola">Thalagaspe - Katandola</option>
                     <option value="Thalagaspe - Kellapatha">Thalagaspe - Kellapatha</option>
