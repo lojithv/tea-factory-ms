@@ -11,20 +11,22 @@ const useUser = () => {
     const supabase = createClientComponentClient()
 
     useEffect(() => {
-        supabase.auth.getUser().then((res) => {
-            console.log(res.data)
-            if (!res.error && res.data.user) {
-                userSubject.next(res.data.user)
-                supabase.from('users').select().eq('userid', res.data.user.id).then((res1) => {
-                    console.log(res1.data)
-                    if (res1.data)
-                        userDetailsSubject.next(res1.data[0])
-                })
-            } else {
-                userDetailsSubject.next(null)
-                userSubject.next(null)
-            }
-        })
+        if (!(userSubject.value && userDetailsSubject.value)) {
+            supabase.auth.getUser().then((res) => {
+                console.log(res.data)
+                if (!res.error && res.data.user) {
+                    userSubject.next(res.data.user)
+                    supabase.from('users').select().eq('userid', res.data.user.id).then((res1) => {
+                        console.log(res1.data)
+                        if (res1.data)
+                            userDetailsSubject.next(res1.data[0])
+                    })
+                } else {
+                    userDetailsSubject.next(null)
+                    userSubject.next(null)
+                }
+            })
+        }
 
         return () => {
 

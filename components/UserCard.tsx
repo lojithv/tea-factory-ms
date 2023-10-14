@@ -109,7 +109,7 @@ const UserCard: React.FC<UserProps> = ({ user, index, isDelete, onDeleteUser }) 
                                 <p className={`${dmSerifDisplay.className} text-sm font-medium text-gray-900 truncate `}>
                                     {user?.address}
                                 </p>
-                                <p className={`${dmSerifDisplay.className} text-sm text-gray-500 truncate `}>
+                                <p className={`${dmSerifDisplay.className} text-sm text-green-700 truncate `}>
                                     {user?.phonenumber}
                                 </p>
                             </div>
