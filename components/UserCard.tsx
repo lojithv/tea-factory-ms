@@ -46,7 +46,7 @@ const UserCard: React.FC<UserProps> = ({ user, index, isDelete, onDeleteUser }) 
         setIsOpen(!isOpen);
     }
     const handleNavigate = () => {
-        window.location.href = '/single-tea-collector';
+        window.location.href = (user.usertype == 'customer' ? '/customer-details/' : '/single-tea-collector/') + user.userid;
     }
     const handleAddCustomerSupply = async (userId: string) => {
         if (amount && price) {

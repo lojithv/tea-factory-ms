@@ -18,7 +18,7 @@ const bitter = Bitter({
     weight: '400'
 })
 
-const SingleEmoplyee = (props: Props) => {
+const SingleEmoplyee = ({ params }: { params: { slug: string } }) => {
     const [user, setUser] = useState<any>();
     const [error, setError] = useState<any>();
     const [userId, setUserId] = useState<any>();
@@ -27,17 +27,19 @@ const SingleEmoplyee = (props: Props) => {
     const supabase = createClientComponentClient()
 
     useEffect(() => {
-        const ClickedUserId = localStorage.getItem('ClickedUserId');
-        setUserId(ClickedUserId)
+        // const ClickedUserId = localStorage.getItem('ClickedUserId');
+        console.log(params.slug)
+        setUserId(params.slug)
 
         async function fetchData() {
             try {
                 const { data, error } = await supabase
                     .from('tea_collectors')
                     .select('*, users (*)')
-                    .eq('employee_id', ClickedUserId);
+                    .eq('employee_id', params.slug);
 
                 if (error) {
+                    console.log(error)
                     setError(error);
                 } else {
                     setUser(data[0].users);
