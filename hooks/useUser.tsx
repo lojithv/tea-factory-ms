@@ -25,7 +25,12 @@ const useUser = () => {
                 userSubject.next(null)
             }
         })
+
+        return () => {
+
+        }
     }, [])
+
 
     if (userSubject && userDetailsSubject && userSubject.value && userDetailsSubject.value) {
         return { user: userSubject.value, userDetails: userDetailsSubject.value }

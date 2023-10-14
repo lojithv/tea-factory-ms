@@ -93,7 +93,7 @@ const Customers = (props: Props) => {
                         <UserCard key={index} index={index} user={user} isDelete={true} />
                     ))}
 
-                    {showSearchResults && !searchResults.length && <div>No Results Found</div>}
+                    {showSearchResults && !searchResults.length && <div className='pt-3'>No Results Found</div>}
                 </div>
                 <div className="w-1/4  h-auto"></div>
             </div>
