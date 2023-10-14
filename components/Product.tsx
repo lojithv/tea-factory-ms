@@ -41,7 +41,7 @@ const Product = (props: Props) => {
             <div className={`w-full h-full flex flex-col items-center pb-3 pt-3`}>
                 <Image src={props.image} style={{ height: '200px', width: 'auto' }} alt={''} width={190} height={200} />
                 <div> {props.name}</div>
-                <div>Rs. {props.price}</div>
+                <div>Rs. {props.price}.00</div>
                 <div className='bg-[#2da74b] hover:bg-[#255e33] text-white font-bold py-2 px-4 rounded' onClick={handleAddToCart}>Add To Cart</div>
             </div>
         </div>

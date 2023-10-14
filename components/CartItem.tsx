@@ -8,7 +8,7 @@ type Props = {
 const CartItem = (props: Props) => {
     return (
         <div>
-            {props.name} - Rs. {props.price}
+            {props.name} - Rs. {props.price}.00
         </div>
     )
 }
