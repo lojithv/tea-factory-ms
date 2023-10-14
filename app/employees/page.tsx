@@ -2,10 +2,13 @@
 
 import UserCard from '@/components/UserCard'
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
+import debounce from 'lodash.debounce'
 import { Bitter, DM_Serif_Display } from 'next/font/google'
 import { useRouter } from 'next/navigation'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo, ChangeEvent } from 'react'
 import Swal from 'sweetalert2'
+
+
 
 type Props = {}
 
@@ -30,9 +33,14 @@ const Employee = (props: Props) => {
     const [phoneNum, setPhoneNum] = useState('')
     const router = useRouter()
     const supabase = createClientComponentClient()
-    const [users, setUsers] = useState<any>();
+    const [users, setUsers] = useState<any[]>([]);
     const [error, setError] = useState<any>(null);
     const [state, setState] = useState<boolean>(false);
+
+    const [searchResults, setSearchResults] = useState<any[]>([])
+
+    const [searchText, setSearchText] = useState<string>('')
+    const [showSearchResults, setShowSearchResults] = useState<boolean>(false)
 
     useEffect(() => {
         const closePopupOnOutsideClick = (event: any) => {
@@ -89,25 +97,56 @@ const Employee = (props: Props) => {
         // router.refresh()
     }
     useEffect(() => {
-        async function fetchData() {
-            try {
-                const { data, error } = await supabase
-                    .from('users')
-                    .select('*')
-                    .eq('usertype', 'employee');
-
-                if (error) {
-                    setError(error);
-                } else {
-                    setUsers(data);
-                }
-            } catch (error) {
-                setError(error);
-            }
-        }
-
         fetchData();
     }, [state]);
+
+    async function fetchData() {
+        try {
+            const { data, error } = await supabase
+                .from('users')
+                .select('*')
+                .eq('usertype', 'employee');
+
+            if (error) {
+                setError(error);
+            } else {
+                setUsers(data);
+            }
+        } catch (error) {
+            setError(error);
+        }
+    }
+
+    const searchData = async (searchText: string) => {
+        if (searchText) {
+            const { data, error } = await supabase.from('users').select().eq('usertype', 'employee').textSearch('fullname', searchText + ':*')
+            console.log(data)
+            if (data) {
+                setShowSearchResults(true)
+                setSearchResults(data)
+            }
+        } else {
+            setShowSearchResults(false)
+            setSearchResults([])
+        }
+    }
+
+    useEffect(() => {
+        return () => {
+            debouncedResults.cancel();
+        };
+    });
+
+    const handleSearchTextChange = (e: ChangeEvent<HTMLInputElement>) => {
+        console.log('search text change', e.target.value)
+        searchData(e.target.value)
+        setSearchText(e.target.value)
+    }
+
+    const debouncedResults = useMemo(() => {
+        return debounce(handleSearchTextChange, 1000);
+    }, []);
+
     const handleDeleteEmployee = async (userId: string) => {
         try {
             const { error } = await supabase
@@ -140,14 +179,17 @@ const Employee = (props: Props) => {
                 confirmButtonColor: '#2da74b'
             })
         }
-
     };
+
     return (
         <>
             <div className="flex mb-4">
                 <div className="w-1/4  h-auto"></div>
                 <div className="w-2/4  h-auto flex flex-col items-center">
                     <div className={`font-bold ${dmSerifDisplay.className} text-[48px] text-[#2da74b] mb-2`}>Employees</div>
+                    <div className="mt-2">
+                        <input id="search" placeholder='search' name="search" type="text" autoComplete="current-password" onChange={debouncedResults} required className="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                    </div>
                     <div className='flex mt-2'>
                         <button
                             onClick={togglePopup}
@@ -250,9 +292,11 @@ const Employee = (props: Props) => {
                             </div>
                         )}
                     </div>
-                    {users?.map((user: any, index: any) => (
+                    {(showSearchResults ? searchResults : users)?.map((user: any, index: any) => (
                         <UserCard key={index} index={index} user={user} isDelete={true} onDeleteUser={handleDeleteEmployee} />
                     ))}
+
+                    {showSearchResults && !searchResults.length && <div>No Results Found</div>}
                 </div>
                 <div className="w-1/4  h-auto"></div>
             </div>

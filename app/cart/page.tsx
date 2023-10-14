@@ -24,7 +24,7 @@ function Cart({ }: Props) {
     const user = useUser()
 
     const [cartItems, setCartItems] = useState([] as any[])
-    const [state,setState] = useState<boolean>(false)
+    const [state, setState] = useState<boolean>(false)
 
     useEffect(() => {
         if (user && !cartItems.length) {
@@ -34,7 +34,7 @@ function Cart({ }: Props) {
                 }
             })
         }
-    }, [user,state])
+    }, [user, state])
 
 
     const getTotal = () => {
@@ -109,10 +109,10 @@ function Cart({ }: Props) {
                 )}
 
                 {cartItems.length > 0 && !state && (
-                    <div>Total: {getTotal()}</div>
+                    <div>Total: Rs.{getTotal()}.00</div>
                 )}
                 {
-                    cartItems.length > 0 && !state  ? (
+                    cartItems.length > 0 && !state ? (
                         <div className='flex gap-2 mt-4'>
                             <div className='bg-[#2da74b] hover:bg-[#255e33] text-white font-bold py-2 px-4 rounded cursor-pointer' onClick={handleOrder}>Order</div>
                         </div>

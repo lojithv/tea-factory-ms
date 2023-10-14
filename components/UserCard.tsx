@@ -46,10 +46,10 @@ const UserCard: React.FC<UserProps> = ({ user, index, isDelete, onDeleteUser }) 
         setIsOpen(!isOpen);
     }
     const handleNavigate = () => {
-        window.location.href = '/single-tea-collector';
+        window.location.href = (user.usertype == 'customer' ? '/customer-details/' : '/single-tea-collector/') + user.userid;
     }
-    const handleAddCustomerSupply = async (userId:string) => {
-        if (amount &&  price ) {
+    const handleAddCustomerSupply = async (userId: string) => {
+        if (amount && price) {
             try {
                 const { data, error } = await supabase
                     .from('supply_history')
@@ -92,7 +92,7 @@ const UserCard: React.FC<UserProps> = ({ user, index, isDelete, onDeleteUser }) 
         }
     }
     return (
-        <div  onClick={() => handleClickCard(user?.userid)} key={index} className={`cursor-pointer w-full p-2 mb-1 mt-1 bg-white border border-gray-200 rounded-lg shadow sm:p-4`}>
+        <div onClick={() => handleClickCard(user?.userid)} key={index} className={`cursor-pointer w-full p-2 mb-1 mt-1 bg-white border border-gray-200 rounded-lg shadow sm:p-4`}>
             <div className="flow-root">
                 <ul role="list" className="divide-y divide-gray-200 dark:divide-gray-700">
                     <li className="py-3 sm:py-4">
@@ -101,15 +101,15 @@ const UserCard: React.FC<UserProps> = ({ user, index, isDelete, onDeleteUser }) 
                                 <p className={`${dmSerifDisplay.className} text-sm font-medium text-gray-900 truncate `}>
                                     {user?.fullname}
                                 </p>
-                                <p className={`${dmSerifDisplay.className} text-sm text-gray-500 truncate `}>
+                                {/* <p className={`${dmSerifDisplay.className} text-sm text-gray-500 truncate `}>
                                     {user?.userid}
-                                </p>
+                                </p> */}
                             </div>
                             <div className="flex-1 min-w-0" onClick={() => handleNavigate()}>
                                 <p className={`${dmSerifDisplay.className} text-sm font-medium text-gray-900 truncate `}>
                                     {user?.address}
                                 </p>
-                                <p className={`${dmSerifDisplay.className} text-sm text-gray-500 truncate `}>
+                                <p className={`${dmSerifDisplay.className} text-sm text-green-700 truncate `}>
                                     {user?.phonenumber}
                                 </p>
                             </div>
