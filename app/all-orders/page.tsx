@@ -24,14 +24,16 @@ const AllOrders = (props: Props) => {
     const user = useUser()
 
     useEffect(() => {
-        if (user && !orders.length) {
-            supabase.from('orders').select().then((res) => {
+        if (!orders.length) {
+            supabase.from('orders').select('*, users(*)').then((res) => {
                 if (res.data) {
+                    console.log(res.data)
                     setOrders(res.data)
                 }
             })
         }
-    }, [user])
+    }, [])
+
     return (
         <>
             <div className="flex mb-4">

@@ -25,8 +25,9 @@ const OrderHistory = (props: Props) => {
 
     useEffect(() => {
         if (user && !orders.length) {
-            supabase.from('orders').select().eq('userid', user?.user.id).then((res) => {
+            supabase.from('orders').select('*, users(*)').eq('userid', user?.user.id).then((res) => {
                 if (res.data) {
+                    console.log(res.data)
                     setOrders(res.data)
                 }
             })
