@@ -1,7 +1,7 @@
 "use client"
 
 import useUser from '@/hooks/useUser'
-import { Mail, MapPin, Phone, UserCircle2 } from 'lucide-react'
+import { Briefcase, Mail, MapPin, Phone, UserCircle2 } from 'lucide-react'
 import { Bitter, DM_Serif_Display } from 'next/font/google'
 import React, { useEffect, useState } from 'react'
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
@@ -23,7 +23,7 @@ const SingleEmoplyee = ({ params }: { params: { slug: string } }) => {
     const [error, setError] = useState<any>();
     const [userId, setUserId] = useState<any>();
 
-    const [route, setRoute] = useState('')
+    const [data, setData] = useState<any>(null)
     const supabase = createClientComponentClient()
 
     useEffect(() => {
@@ -43,7 +43,7 @@ const SingleEmoplyee = ({ params }: { params: { slug: string } }) => {
                     setError(error);
                 } else {
                     setUser(data[0].users);
-                    setRoute(data[0].route)
+                    setData(data[0])
                     console.log("data========>", data)
                 }
             } catch (error) {
@@ -62,9 +62,13 @@ const SingleEmoplyee = ({ params }: { params: { slug: string } }) => {
             <div className="flex h-full w-1/2 flex-col items-start justify-center px-10">
                 <div className={`font-bold ${dmSerifDisplay.className} text-[48px] text-[#2da74b]`}>Profile</div>
                 <div className={`${bitter.className} mt-10`}>
-                    <div className='flex font-bold gap-2 text-[#2da74b]'><MapPin />Route:</div>
+                    <div className='flex font-bold gap-2 text-[#2da74b]'><Briefcase />Availability:</div>
                     <div>
-                        {route}
+                        {data ? data.available ? 'Available' : "Not Available" : 'Not Set'}
+                    </div>
+                    <div className='flex font-bold mt-5 gap-2 text-[#2da74b]'><MapPin />Route:</div>
+                    <div>
+                        {data ? data.route : 'Not Set'}
                     </div>
                     <div className='flex font-bold mt-5 gap-2 text-[#2da74b]'><UserCircle2 />Name:</div>
                     <div>
@@ -78,9 +82,6 @@ const SingleEmoplyee = ({ params }: { params: { slug: string } }) => {
                     <div>
                         {route}
                     </div> */}
-
-
-
                 </div>
             </div>
         </div>

@@ -79,9 +79,11 @@ const Employee = (props: Props) => {
         }).then((res) => {
             console.log(res)
             if (!res.error) {
-                supabase.from('users').insert({ userid: res.data.user?.id, fullname: fullName, address: address, phonenumber: phoneNum, usertype: 'employee' }).then((res1) => {
+                supabase.from('users').insert({ userid: res.data.user?.id, fullname: fullName, address: address, phonenumber: phoneNum, usertype: 'employee', email: email }).then((res1) => {
                     if (!res1.error) {
                         setState(!state)
+                        // supabase.from('tea_collectors').insert({ employee_id: res.data.user?.id }).then((res2) => {
+                        // })
                         togglePopup()
                     }
                 })
