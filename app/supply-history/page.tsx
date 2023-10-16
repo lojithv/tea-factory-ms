@@ -65,7 +65,7 @@ const SupplyHistory = (props: Props) => {
                                                     {/* <p className={`${dmSerifDisplay.className} text-sm font-medium text-gray-900 truncate `}>
                                                         {item?.users.fullname}
                                                     </p> */}
-                                                    <p className={`${dmSerifDisplay.className} text-sm text-gray-500 truncate `}>
+                                                    <p className={`${dmSerifDisplay.className} text-sm text-green-700 truncate `}>
                                                         {moment(item?.created_at).format('MMMM Do YYYY')}
                                                     </p>
                                                 </div>
@@ -73,7 +73,7 @@ const SupplyHistory = (props: Props) => {
                                                     <p className={`${dmSerifDisplay.className} text-sm font-medium text-gray-900 truncate `}>
                                                         Price: Rs.{item?.price}.00
                                                     </p>
-                                                    <p className={`${dmSerifDisplay.className} text-sm text-gray-500 truncate `}>
+                                                    <p className={`${dmSerifDisplay.className} text-sm text-green-700 truncate `}>
                                                         Amount: {item?.amount} Kg
                                                     </p>
                                                 </div>

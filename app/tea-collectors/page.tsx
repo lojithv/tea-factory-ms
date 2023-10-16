@@ -38,7 +38,7 @@ const TeaCollectors = (props: Props) => {
             try {
                 const { data, error } = await supabase
                     .from('tea_collectors')
-                    .select(`*, users (*)`)
+                    .select(`*, users (*)`).eq('available', true)
 
                 if (error) {
                     setError(error);

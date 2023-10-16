@@ -4,6 +4,7 @@ import { Bitter, DM_Serif_Display } from 'next/font/google'
 import { useRouter } from 'next/router';
 import React, { useState, useEffect } from 'react'
 import moment from 'moment';
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 
 const dmSerifDisplay = DM_Serif_Display({
     subsets: ['latin'],
@@ -24,6 +25,10 @@ const OrderedCard: React.FC<UserProps> = ({ order, index }) => {
     const [items, setItems] = useState([] as any[])
     // const router = useRouter();
 
+    const [orderData, setOrderData] = useState(order)
+
+    const supabase = createClientComponentClient()
+
     const toggleDropdown = () => {
         setIsDropdownOpen(!isDropdownOpen);
     };
@@ -35,9 +40,18 @@ const OrderedCard: React.FC<UserProps> = ({ order, index }) => {
 
     const formattedDate = moment(order.created_at).format('MMMM Do YYYY');
 
+    const handleAcceptReject = async (action: string) => {
+        const { data, error } = await supabase.from('orders').update({ status: action }).eq('id', order.id)
+        setOrderData({ ...order, status: action })
+        console.log(data)
+        console.log(error)
+    }
+
     return (
         <div key={index} className={` w-full p-2 mb-1 mt-1 bg-white border border-gray-200 rounded-lg shadow sm:p-4 `}>
             <div className="flow-root">
+                <div>Customer Name: {order.users?.fullname}</div>
+                <div>Address: {order.users?.address}</div>
                 <table className="table-fixed min-w-full">
                     <thead>
                         <tr>
@@ -62,17 +76,17 @@ const OrderedCard: React.FC<UserProps> = ({ order, index }) => {
                         {items?.map((item: any, index: number) => (
                             <tr key={index}>
                                 <td >
-                                    <p className={`${dmSerifDisplay.className} text-sm text-gray-500 truncate `}>
+                                    <p className={`${dmSerifDisplay.className} text-sm text-green-700 truncate `}>
                                         {item?.product || item?.name}
                                     </p>
                                 </td>
                                 <td>
-                                    <p className={`${dmSerifDisplay.className} text-sm text-gray-500 truncate `}>
+                                    <p className={`${dmSerifDisplay.className} text-sm text-green-700 truncate `}>
                                         {item?.qty}
                                     </p>
                                 </td>
                                 <td>
-                                    <p className={`${dmSerifDisplay.className} text-sm text-gray-500 truncate `}>
+                                    <p className={`${dmSerifDisplay.className} text-sm text-green-700 truncate `}>
                                         Rs. {item?.price}
                                     </p>
                                 </td>
@@ -94,10 +108,22 @@ const OrderedCard: React.FC<UserProps> = ({ order, index }) => {
                     </tbody>
                 </table>
             </div>
-            <div>
-                <p className={`${dmSerifDisplay.className} mt-4 text-sm text-center font-medium text-gray-500 truncate `}>
+            <div className='flex justify-between items-center mt-4 '>
+                <p className={`${dmSerifDisplay.className} text-sm text-center font-medium text-green-700 truncate `}>
                     Ordered Date: {formattedDate}
                 </p>
+                {orderData.status == 'pending' && (
+                    <div className='flex gap-2'>
+                        <div onClick={() => handleAcceptReject('completed')}>Mark as Complete</div>
+                        {/* <div onClick={() => handleAcceptReject('rejected')}>Reject</div> */}
+                    </div>
+
+                )}
+                {orderData.status != 'pending' && (
+                    <div className='flex gap-2'>
+                        {orderData.status}
+                    </div>
+                )}
             </div>
         </div>
     );

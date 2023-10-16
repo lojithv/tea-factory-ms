@@ -13,7 +13,7 @@ type Props = {
     quantity: string;
     id: string;
     type: string;
-    onUpdateProduct: (image: string,name: string,price: string,quantity: string,type: string,id:string) => void;
+    onUpdateProduct: (image: string, name: string, price: string, quantity: string, type: string, id: string) => void;
     onDeleteProduct: (id: string) => void;
 }
 
@@ -26,17 +26,34 @@ const ProductItem = (props: Props) => {
     console.log("currentUser==>", currentUser)
 
     const sendUpdateData = () => {
-        props.onUpdateProduct(props.image,props.name,props.price,props.quantity,props.type,props.id);
-      };
+        props.onUpdateProduct(props.image, props.name, props.price, props.quantity, props.type, props.id);
+    };
 
     const sendDeleteData = async () => {
-        props.onDeleteProduct(props.id);
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                props.onDeleteProduct(props.id);
+                // Swal.fire(
+                //     'Deleted!',
+                //     'Your file has been deleted.',
+                //     'success'
+                // )
+            }
+        })
     }
 
     return (
         <div className='w-[250px] h-fit shadow-md rounded-md'>
             <div className={`w-full h-full flex flex-col items-center pb-3 pt-3`}>
-                <Image src="/Fertilizer/1- Organic Manure - 5kg - Rs.250.jpg" style={{ height: '200px', width: 'auto' }} alt={''} width={190} height={200} />
+                <Image src={props.image} style={{ height: '200px', width: 'auto' }} alt={''} width={190} height={200} />
                 <div> {props.name}</div>
                 <div>Rs. {props.price}</div>
                 <div>Quantity {props.quantity}</div>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Bitter, DM_Serif_Display } from 'next/font/google'
 import { useRouter } from 'next/router';
+import Swal from 'sweetalert2';
 
 const dmSerifDisplay = DM_Serif_Display({
     subsets: ['latin'],
@@ -32,8 +33,21 @@ const TeaCollectorCard: React.FC<UserProps> = ({ user, index, isDelete, onDelete
         }
     }
     const sendDeleteUserId = (userId: any) => {
-        if (onDeleteUser)
-            onDeleteUser(userId);
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                if (onDeleteUser)
+                    onDeleteUser(userId);
+            }
+        })
+
     };
     return (
         <a href={isDelete ? '#' : '/single-tea-collector'} onClick={() => handleClickCard(user?.userid)} key={index} className={`cursor-pointer w-full p-2 mb-1 mt-1 bg-white border border-gray-200 rounded-lg shadow sm:p-4`}>
@@ -50,7 +64,7 @@ const TeaCollectorCard: React.FC<UserProps> = ({ user, index, isDelete, onDelete
                                 <p className={`${dmSerifDisplay.className} text-sm font-medium text-gray-900 truncate `}>
                                     {route}
                                 </p>
-                                <p className={`${dmSerifDisplay.className} text-sm text-gray-500 truncate `}>
+                                <p className={`${dmSerifDisplay.className} text-sm text-green-700 truncate `}>
                                     {user?.phonenumber}
                                 </p>
                             </div>

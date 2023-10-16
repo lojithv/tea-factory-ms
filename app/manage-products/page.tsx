@@ -177,9 +177,10 @@ function ManageProducts({ }: Props) {
                 if (error) {
                     setError(error);
                 } else {
-                    setFertilizer(data?.filter(obj => obj.type === "fertiliser"));
-                    setTeaPowder(data?.filter(obj => obj.type === "teapowder"));
+                    setFertilizer(data?.filter(obj => obj.type === "fertilizer"));
+                    setTeaPowder(data?.filter(obj => obj.type === "tea-powder"));
                     console.log("data===>", data)
+                    console.log(data?.filter(obj => obj.type === "tea-powder"))
                 }
             } catch (error) {
                 setError(error);
@@ -357,14 +358,14 @@ function ManageProducts({ }: Props) {
                     {selectedTab == 1 && (
                         <div className='flex flex-wrap gap-5 justify-center p-10'>
                             {fertilizer?.map((item: any, i: any) => (
-                                <ProductItem key={i} onDeleteProduct={handleDeleteProduct} id={item.id} type={item.type} onUpdateProduct={handleUpdateProduct} image={item.path} name={item.name} price={item.price} quantity={item.quantity} />
+                                <ProductItem key={i} onDeleteProduct={handleDeleteProduct} id={item.id} type={item.type} onUpdateProduct={handleUpdateProduct} image={item.image} name={item.name} price={item.price} quantity={item.quantity} />
                             ))}
                         </div>
                     )}
                     {selectedTab == 2 && (
                         <div className='flex flex-wrap gap-5 justify-center p-10'>
                             {teaPowder?.map((item: any, i: any) => (
-                                <ProductItem key={i} onDeleteProduct={handleDeleteProduct} id={item.id} type={item.type} onUpdateProduct={handleUpdateProduct} image={item.path} name={item.name} price={item.price} quantity={item.quantity} />
+                                <ProductItem key={i} onDeleteProduct={handleDeleteProduct} id={item.id} type={item.type} onUpdateProduct={handleUpdateProduct} image={item.image} name={item.name} price={item.price} quantity={item.quantity} />
                             ))}
                         </div>
                     )}

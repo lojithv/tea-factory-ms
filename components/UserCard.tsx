@@ -39,8 +39,21 @@ const UserCard: React.FC<UserProps> = ({ user, index, isDelete, onDeleteUser }) 
         }
     }
     const sendDeleteUserId = (userId: any) => {
-        if (onDeleteUser)
-            onDeleteUser(userId);
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                if (onDeleteUser)
+                    onDeleteUser(userId);
+            }
+        })
+
     };
     const togglePopup = () => {
         setIsOpen(!isOpen);
@@ -101,7 +114,7 @@ const UserCard: React.FC<UserProps> = ({ user, index, isDelete, onDeleteUser }) 
                                 <p className={`${dmSerifDisplay.className} text-sm font-medium text-gray-900 truncate `}>
                                     {user?.fullname}
                                 </p>
-                                {/* <p className={`${dmSerifDisplay.className} text-sm text-gray-500 truncate `}>
+                                {/* <p className={`${dmSerifDisplay.className} text-sm text-green-700 truncate `}>
                                     {user?.userid}
                                 </p> */}
                             </div>

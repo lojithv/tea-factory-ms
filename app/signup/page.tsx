@@ -49,7 +49,7 @@ const SignUp = (props: Props) => {
         }).then((res) => {
             console.log(res)
             if (!res.error) {
-                supabase.from('users').insert({ userid: res.data.user?.id, fullname: fullName, address: address, phonenumber: phoneNum, usertype: 'customer' }).then((res1) => {
+                supabase.from('users').insert({ userid: res.data.user?.id, fullname: fullName, address: address, phonenumber: phoneNum, usertype: 'customer', email: res.data.user?.email }).then((res1) => {
                     if (!res1.error) {
                         router.push('/login')
                     }
@@ -128,7 +128,7 @@ const SignUp = (props: Props) => {
                     </div>
                 </div>
 
-                <p className="mt-10 text-center text-sm text-gray-500">
+                <p className="mt-10 text-center text-sm text-green-700">
                     Already have an account?
                     <a href="/login" className="ml-1 font-semibold leading-6 text-[#2da74b] hover:text-[#23545a]">Sign In</a>
                 </p>
