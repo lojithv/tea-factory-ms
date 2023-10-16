@@ -76,17 +76,17 @@ const OrderedCard: React.FC<UserProps> = ({ order, index }) => {
                         {items?.map((item: any, index: number) => (
                             <tr key={index}>
                                 <td >
-                                    <p className={`${dmSerifDisplay.className} text-sm text-gray-500 truncate `}>
+                                    <p className={`${dmSerifDisplay.className} text-sm text-green-700 truncate `}>
                                         {item?.product || item?.name}
                                     </p>
                                 </td>
                                 <td>
-                                    <p className={`${dmSerifDisplay.className} text-sm text-gray-500 truncate `}>
+                                    <p className={`${dmSerifDisplay.className} text-sm text-green-700 truncate `}>
                                         {item?.qty}
                                     </p>
                                 </td>
                                 <td>
-                                    <p className={`${dmSerifDisplay.className} text-sm text-gray-500 truncate `}>
+                                    <p className={`${dmSerifDisplay.className} text-sm text-green-700 truncate `}>
                                         Rs. {item?.price}
                                     </p>
                                 </td>
@@ -109,7 +109,7 @@ const OrderedCard: React.FC<UserProps> = ({ order, index }) => {
                 </table>
             </div>
             <div className='flex justify-between items-center mt-4 '>
-                <p className={`${dmSerifDisplay.className} text-sm text-center font-medium text-gray-500 truncate `}>
+                <p className={`${dmSerifDisplay.className} text-sm text-center font-medium text-green-700 truncate `}>
                     Ordered Date: {formattedDate}
                 </p>
                 {orderData.status == 'pending' && (

@@ -90,7 +90,7 @@ const Login = (props: Props) => {
                     </div>
                 </div>
 
-                <p className="mt-10 text-center text-sm text-gray-500">
+                <p className="mt-10 text-center text-sm text-green-700">
                     Not a member?
                     <a href="/signup" className="ml-1 font-semibold leading-6 text-[#2da74b] hover:text-[#23545a]">Sign Up</a>
                 </p>
