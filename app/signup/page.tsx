@@ -49,7 +49,7 @@ const SignUp = (props: Props) => {
         }).then((res) => {
             console.log(res)
             if (!res.error) {
-                supabase.from('users').insert({ userid: res.data.user?.id, fullname: fullName, address: address, phonenumber: phoneNum, usertype: 'customer' }).then((res1) => {
+                supabase.from('users').insert({ userid: res.data.user?.id, fullname: fullName, address: address, phonenumber: phoneNum, usertype: 'customer', email: res.data.user?.email }).then((res1) => {
                     if (!res1.error) {
                         router.push('/login')
                     }

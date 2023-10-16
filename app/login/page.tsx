@@ -34,16 +34,17 @@ const Login = (props: Props) => {
             console.log(res)
             userSubject.next(res.data.user)
             if (!res.error) {
-                supabase.from('users').select().eq('userid', res.data.user.id).then((res1) => {
+                supabase.from('users').select('*').eq('userid', res.data.user.id).then((res1) => {
                     console.log(res1.data)
                     if (res1.data) {
                         const user = res1.data[0]
+                        console.log(user)
                         userDetailsSubject.next(user)
-                        if (user.usertype == 'admin') {
+                        if (user?.usertype == 'admin') {
                             router.push('/admin-dashboard')
-                        } else if (user.usertype == 'customer') {
+                        } else if (user?.usertype == 'customer') {
                             router.push('/products')
-                        } else if (user.usertype == 'employee') {
+                        } else if (user?.usertype == 'employee') {
                             router.push('/employee-dashboard')
                         }
                     }

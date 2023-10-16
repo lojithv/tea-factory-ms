@@ -69,6 +69,10 @@ const EmployeeDashboard = (props: Props) => {
         }
     };
 
+    const updateAvailability = () => {
+        console.log('updateAvailability')
+    }
+
     return (
         <div className="flex flex-grow flex-col justify-start px-6 py-12 lg:px-8 gap-10">
             <div className="sm:mx-auto sm:w-full sm:max-w-sm">
