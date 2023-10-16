@@ -17,7 +17,7 @@ const bitter = Bitter({
     weight: '400'
 })
 
-const AllOrders = (props: Props) => {
+const AllOrderHistory = (props: Props) => {
     const supabase = createClientComponentClient()
     const [orders, setOrders] = useState([] as any[])
     const [error, setError] = useState<any>(null);
@@ -25,7 +25,7 @@ const AllOrders = (props: Props) => {
 
     useEffect(() => {
         if (!orders.length) {
-            supabase.from('orders').select('*, users(*)').eq('status', 'pending').then((res) => {
+            supabase.from('orders').select('*, users(*)').eq('status', 'completed').then((res) => {
                 if (res.data) {
                     console.log(res.data)
                     setOrders(res.data)
@@ -50,4 +50,4 @@ const AllOrders = (props: Props) => {
     )
 }
 
-export default AllOrders
+export default AllOrderHistory

@@ -114,8 +114,8 @@ const OrderedCard: React.FC<UserProps> = ({ order, index }) => {
                 </p>
                 {orderData.status == 'pending' && (
                     <div className='flex gap-2'>
-                        <div onClick={() => handleAcceptReject('accepted')}>Accept</div>
-                        <div onClick={() => handleAcceptReject('rejected')}>Reject</div>
+                        <div onClick={() => handleAcceptReject('completed')}>Mark as Complete</div>
+                        {/* <div onClick={() => handleAcceptReject('rejected')}>Reject</div> */}
                     </div>
 
                 )}
