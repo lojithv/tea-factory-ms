@@ -4,7 +4,7 @@ import { BarChart } from '@mui/x-charts/BarChart';
 const chartSetting = {
     xAxis: [
         {
-            label: 'amount (kg)',
+            label: 'amount (Rs.)',
         },
     ],
     width: 500,
@@ -13,15 +13,18 @@ const chartSetting = {
 const dataset = [
     {
         amount: 55,
-        name: 'Oct',
+        name: '1st',
+        placement: '1st'
     },
     {
         amount: 48,
-        name: 'Nov',
+        name: '2nd',
+        placement: '2nd'
     },
     {
         amount: 25,
-        name: 'Dec',
+        name: '3rd',
+        placement: '3rd'
     },
 ];
 
@@ -29,12 +32,18 @@ const valueFormatter = (value: number) => `${value}kg`;
 
 export default function BestCustomerChart() {
     return (
-        <BarChart
-            dataset={dataset}
-            yAxis={[{ scaleType: 'band', dataKey: 'name' }]}
-            series={[{ dataKey: 'amount', label: 'Price (Rs.)', valueFormatter }]}
-            layout="horizontal"
-            {...chartSetting}
-        />
+        <div>
+            <BarChart
+                dataset={dataset}
+                yAxis={[{ scaleType: 'band', dataKey: 'name' }]}
+                series={[{ dataKey: 'amount', label: 'Price (Rs.)', valueFormatter }]}
+                layout="horizontal"
+                {...chartSetting}
+            />
+
+            {dataset.map((d, i) => (
+                <div key={i}>{d.placement} - {d.name}</div>
+            ))}
+        </div>
     );
 }
