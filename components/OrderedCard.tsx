@@ -114,13 +114,13 @@ const OrderedCard: React.FC<UserProps> = ({ order, index }) => {
                 </p>
                 {orderData.status == 'pending' && (
                     <div className='flex gap-2'>
-                        <div onClick={() => handleAcceptReject('completed')}>Mark as Complete</div>
+                        <div className='bg-[#2da74b] text-white hover:bg-[#255e33] p-2' onClick={() => handleAcceptReject('completed')}>Mark as Complete</div>
                         {/* <div onClick={() => handleAcceptReject('rejected')}>Reject</div> */}
                     </div>
 
                 )}
                 {orderData.status != 'pending' && (
-                    <div className='flex gap-2'>
+                    <div className={`flex gap-2 text-white hover:bg-[#255e33] p-2 rounded-full ${orderData.status == 'completed' ? 'bg-[#2da74b]' : 'bg-[#9c2727]'}`}>
                         {orderData.status}
                     </div>
                 )}

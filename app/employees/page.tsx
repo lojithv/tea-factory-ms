@@ -236,14 +236,14 @@ const Employee = (props: Props) => {
                                                     <div>
                                                         <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">Full Name</label>
                                                         <div className="mt-2">
-                                                            <input id="name" name="name" type="text" onChange={(e) => setFullName(e.target.value)} required className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                                                            <input id="name" name="name" placeholder='fullname' type="text" onChange={(e) => setFullName(e.target.value)} required className="block w-full rounded-md border-0 py-1.5 text-gray-900 px-2 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
                                                         </div>
                                                     </div>
 
                                                     <div>
                                                         <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">Email address</label>
                                                         <div className="mt-2">
-                                                            <input id="email" name="email" type="email" autoComplete="email" required onChange={(e) => setEmail(e.target.value)} className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                                                            <input id="email" name="email" placeholder='email' type="email" autoComplete="email" required onChange={(e) => setEmail(e.target.value)} className="block w-full rounded-md border-0 px-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
                                                         </div>
                                                     </div>
 
@@ -252,7 +252,7 @@ const Employee = (props: Props) => {
                                                             <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">Password</label>
                                                         </div>
                                                         <div className="mt-2">
-                                                            <input id="password" name="password" type="password" autoComplete="current-password" onChange={(e) => setPassword(e.target.value)} required className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                                                            <input id="password" name="password" placeholder='password' type="password" autoComplete="current-password" onChange={(e) => setPassword(e.target.value)} required className="block w-full px-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
                                                         </div>
                                                     </div>
 
@@ -261,7 +261,7 @@ const Employee = (props: Props) => {
                                                             <label htmlFor="confirmpassword" className="block text-sm font-medium leading-6 text-gray-900">Confirm Password</label>
                                                         </div>
                                                         <div className="mt-2">
-                                                            <input id="confirmpassword" name="confirmpassword" type="password" onChange={(e) => setConfirmedPassword(e.target.value)} required className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                                                            <input id="confirmpassword" name="confirmpassword" placeholder='confirm password' type="password" onChange={(e) => setConfirmedPassword(e.target.value)} required className="block w-full px-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
                                                         </div>
                                                     </div>
 
@@ -270,7 +270,7 @@ const Employee = (props: Props) => {
                                                             <label htmlFor="address" className="block text-sm font-medium leading-6 text-gray-900">Address</label>
                                                         </div>
                                                         <div className="mt-2">
-                                                            <input id="address" name="address" type="text" required onChange={(e) => setAddress(e.target.value)} className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                                                            <input id="address" name="address" placeholder='address' type="text" required onChange={(e) => setAddress(e.target.value)} className="block w-full rounded-md border-0 px-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
                                                         </div>
                                                     </div>
 
@@ -279,7 +279,7 @@ const Employee = (props: Props) => {
                                                             <label htmlFor="phonenum" className="block text-sm font-medium leading-6 text-gray-900">Phone Number</label>
                                                         </div>
                                                         <div className="mt-2">
-                                                            <input id="phonenum" name="phonenum" type="number" required onChange={(e) => setPhoneNum(e.target.value)} className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                                                            <input id="phonenum" name="phonenum" placeholder='phone number' type="number" required onChange={(e) => setPhoneNum(e.target.value)} className="block w-full rounded-md px-2 border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
                                                         </div>
                                                     </div>
 
