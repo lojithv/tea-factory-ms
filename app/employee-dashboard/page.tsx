@@ -40,16 +40,21 @@ const EmployeeDashboard = (props: Props) => {
         // userSubject.subscribe((res) => {
         console.log("user===>", user)
 
-        if (user)
+        if (user) {
             fetchData()
+        }
         // })
     }, [user])
 
     const fetchData = async () => {
         const { data, error } = await supabase.from('tea_collectors').select('*').eq('employee_id', user?.user.id)
         if (data) {
-            setAvailability(data[0].available ? 'available' : 'not-available')
-            setSelectedRoute(data[0].route)
+            if (availablity == 'none') {
+                setAvailability(data[0].available ? 'available' : 'not-available')
+            }
+            if (selectedRoute == 'none') {
+                setSelectedRoute(data[0].route)
+            }
         }
     }
 
