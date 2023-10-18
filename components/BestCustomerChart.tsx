@@ -29,7 +29,7 @@ const dataset = [
     },
 ];
 
-const valueFormatter = (value: number) => `${value}kg`;
+const valueFormatter = (value: number) => `${value}`;
 
 export default function BestCustomerChart({ data }: { data: any[] }) {
 
