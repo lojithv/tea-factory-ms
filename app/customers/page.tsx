@@ -96,7 +96,7 @@ const Customers = (props: Props) => {
                     </div>
 
                     {(showSearchResults ? searchResults : customers)?.map((user: any, index: any) => (
-                        <UserCard key={index} index={index} user={user} isDelete={true} />
+                        <UserCard key={index} index={index} user={user} isDelete={true} isSupply={true} />
                     ))}
 
                     {showSearchResults && !searchResults.length && <div className='pt-3'>No Results Found</div>}
