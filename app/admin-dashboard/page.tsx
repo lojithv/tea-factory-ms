@@ -70,14 +70,14 @@ const AdminDashboard = (props: Props) => {
     return (
         <div className='pt-12'>
             <div className='flex justify-around mb-5 w-full'>
-                <div className='text-center'>
+                <div className='text-center min-h-[200px]'>
                     <div>Best Suppliers of Last 30 Days</div>
-                    <BestSupplierChart />
+                    <BestSupplierChart data={supplyHistory} />
                 </div>
 
-                <div className='text-center'>
+                <div className='text-center min-h-[200px]'>
                     <div>Best Customers of Last 30 Days</div>
-                    <BestCustomerChart />
+                    <BestCustomerChart data={orders} />
                 </div>
 
             </div>
