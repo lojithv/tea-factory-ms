@@ -18,7 +18,7 @@ interface UserProps {
     user: any;
     index: number;
     isDelete: boolean;
-    isSupply: boolean;
+    isSupply?: boolean;
     onDeleteUser?: (data: string) => void;
 }
 const UserCard: React.FC<UserProps> = ({ user, index, isDelete, onDeleteUser, isSupply }) => {
