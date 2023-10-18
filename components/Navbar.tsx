@@ -89,7 +89,7 @@ const Navbar = (props: Props) => {
                         <Link href={'/products'}><div className='hover:text-[#2da74b]'>Products</div></Link>
                         <Link href={'/tea-collectors'}><div className='hover:text-[#2da74b]'>Tea Collectors</div></Link>
                         <Link href={'/cart'}><div className='hover:text-[#2da74b]'>Cart</div></Link>
-                        <Link href={'/order-history'}><div className='hover:text-[#2da74b]'>Order History</div></Link>
+                        <Link href={'/my-order-history'}><div className='hover:text-[#2da74b]'>Order History</div></Link>
                         <Link href={'/supply-history'}><div className='hover:text-[#2da74b]'>Supply History</div></Link>
                         <Link href={'/user-details'}><div className='hover:text-[#2da74b]'>Profile</div></Link>
                         <div onClick={handleLogout}> <div className='bg-[#2da74b] text-white hover:bg-[#255e33] p-2'>Logout</div></div>

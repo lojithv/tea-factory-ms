@@ -18,9 +18,10 @@ interface UserProps {
     user: any;
     index: number;
     isDelete: boolean;
+    isSupply?: boolean;
     onDeleteUser?: (data: string) => void;
 }
-const UserCard: React.FC<UserProps> = ({ user, index, isDelete, onDeleteUser }) => {
+const UserCard: React.FC<UserProps> = ({ user, index, isDelete, onDeleteUser, isSupply }) => {
 
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const LoggedUser = useUser()
@@ -136,7 +137,7 @@ const UserCard: React.FC<UserProps> = ({ user, index, isDelete, onDeleteUser }) 
                                 )
                             }
                             {
-                                !isDelete &&
+                                isSupply &&
                                 (
                                     <div className="inline-flex items-center text-base font-semibold text-gray-900">
                                         <button onClick={togglePopup} className={`${dmSerifDisplay.className} bg-green-500 hover:bg-[#24555c] text-white font-bold py-2 px-4 rounded-full`}>
