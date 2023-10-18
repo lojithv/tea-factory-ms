@@ -28,7 +28,9 @@ const AllOrders = (props: Props) => {
     const [error, setError] = useState<any>(null);
     const user = useUser()
 
-    const [startDate, setStartDate] = React.useState<Dayjs | null>(dayjs());
+    const today = dayjs();
+
+    const [startDate, setStartDate] = React.useState<Dayjs | null>(today.subtract(7, 'day'));
     const [endDate, setEndDate] = React.useState<Dayjs | null>(dayjs());
 
     const [searchResults, setSearchResults] = useState<any[]>([])
@@ -38,7 +40,7 @@ const AllOrders = (props: Props) => {
 
     useEffect(() => {
         if (!orders.length) {
-            supabase.from('orders').select('*, users(*)').eq('status', 'pending').then((res) => {
+            supabase.from('orders').select('*, users(*)').lt('created_at', endDate).gte('created_at', startDate).eq('status', 'pending').then((res) => {
                 if (res.data) {
                     console.log(res.data)
                     setOrders(res.data)
