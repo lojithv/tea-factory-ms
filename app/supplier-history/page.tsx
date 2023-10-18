@@ -122,7 +122,7 @@ const SupplierHistory = (props: Props) => {
                                 value={endDate}
                                 onChange={(newValue) => setEndDate(newValue)}
                             />
-                            <div onClick={filterByDateRange}>Apply</div>
+                            <div className='bg-[#2da74b] text-white hover:bg-[#255e33] p-2' onClick={filterByDateRange}>Apply</div>
                         </div>
                     </LocalizationProvider>
                     {!showSearchResults && supplyHistory?.map((item, i) => {
