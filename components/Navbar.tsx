@@ -7,6 +7,7 @@ import { Abril_Fatface, DM_Serif_Display, Domine } from 'next/font/google'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
+import { Subscription } from 'rxjs'
 
 type Props = {}
 
@@ -32,16 +33,22 @@ const Navbar = (props: Props) => {
 
     const supabase = createClientComponentClient()
 
+    const [subscriptions, setSubscriptions] = useState<Subscription[]>([])
+
     useEffect(() => {
-        console.log("route change.......")
-        userDetailsSubject.subscribe((userData) => {
-            if (userData) {
-                setUserType(userData.usertype)
-            } else {
-                setUserType('')
-            }
-        })
-        console.log(user)
+        if (!subscriptions.length) {
+            console.log("route change.......")
+            const sub = userDetailsSubject.subscribe((userData) => {
+                if (userData) {
+                    setUserType(userData.usertype)
+                } else {
+                    setUserType('')
+                }
+            })
+            console.log(user)
+            setSubscriptions([sub])
+        }
+
         // if (user) {
         //     setUserType(user.userDetails.usertype)
         // } else {
@@ -59,6 +66,10 @@ const Navbar = (props: Props) => {
                 router.replace('/')
             }
         }
+
+        return () => {
+            subscriptions.forEach((s) => s.unsubscribe())
+        }
     }, [currentPage, user])
 
     const handleLogout = () => {
@@ -73,7 +84,7 @@ const Navbar = (props: Props) => {
         <div className={`w-full flex items-center justify-between ${dmSerifDisplay.className} text-[#2c666eff] p-5`}>
             <div className='text-[#2da74b] font-bold text-[25px]'>Priyankara Tea Buyers</div>
             <div className='flex gap-5 items-center'>
-                {!userType && (
+                {!user && (
                     <>
                         <Link href={'/'}><div className='hover:text-[#2da74b]'>Home</div></Link>
                         <Link href={'/products'}><div className='hover:text-[#2da74b]'>Products</div></Link>
@@ -83,7 +94,7 @@ const Navbar = (props: Props) => {
                         <Link href={'/signup'}><div className='bg-[#2da74b] text-white hover:bg-[#255e33] p-2'>Sign up</div></Link>
                     </>
                 )}
-                {userType && userType == 'customer' && (
+                {user?.userDetails.usertype == 'customer' && (
                     <>
                         {/* <Link href={'/customer-dashboard'}><div className='hover:text-[#2da74b]'>Dashboard</div></Link> */}
                         <Link href={'/products'}><div className='hover:text-[#2da74b]'>Products</div></Link>
@@ -97,7 +108,7 @@ const Navbar = (props: Props) => {
                 )}
 
 
-                {userType && userType == 'employee' && (
+                {user?.userDetails.usertype == 'employee' && (
                     <>
                         <Link href={'/employee-dashboard'}><div className='hover:text-[#2da74b]'>Dashboard</div></Link>
                         {/* <Link href={'/location'}><div className='hover:text-[#2da74b]'>Location</div></Link> */}
@@ -106,7 +117,7 @@ const Navbar = (props: Props) => {
                     </>
                 )}
 
-                {userType && userType == 'admin' && (
+                {user?.userDetails.usertype == 'admin' && (
                     <>
                         <Link href={'/admin-dashboard'}><div className='hover:text-[#2da74b]'>Dashboard</div></Link>
                         <Link href={'/all-orders'}><div className='hover:text-[#2da74b]'>Orders</div></Link>

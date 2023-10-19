@@ -1,9 +1,12 @@
+
+
 import React, { useState } from 'react';
 import { Bitter, DM_Serif_Display } from 'next/font/google'
-import { useRouter } from 'next/router';
+
 import useUser from '@/hooks/useUser'
 import Swal from 'sweetalert2'
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
+import { useRouter } from 'next/navigation';
 
 const dmSerifDisplay = DM_Serif_Display({
     subsets: ['latin'],
@@ -29,7 +32,7 @@ const UserCard: React.FC<UserProps> = ({ user, index, isDelete, onDeleteUser, is
     const [amount, setAmount] = useState('')
     const [price, setPrice] = useState('')
     const supabase = createClientComponentClient()
-    // const router = useRouter();
+    const router = useRouter();
 
     const toggleDropdown = () => {
         setIsDropdownOpen(!isDropdownOpen);
@@ -60,7 +63,8 @@ const UserCard: React.FC<UserProps> = ({ user, index, isDelete, onDeleteUser, is
         setIsOpen(!isOpen);
     }
     const handleNavigate = () => {
-        window.location.href = (user.usertype == 'customer' ? '/customer-details/' : '/single-tea-collector/') + user.userid;
+        router.push((user.usertype == 'customer' ? '/customer-details/' : '/single-tea-collector/') + user.userid)
+        // window.location.href = (user.usertype == 'customer' ? '/customer-details/' : '/single-tea-collector/') + user.userid;
     }
     const handleAddCustomerSupply = async (userId: string) => {
         if (amount && price) {
