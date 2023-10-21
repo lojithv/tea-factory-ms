@@ -125,7 +125,7 @@ const Navbar = (props: Props) => {
                         <Link href={'/manage-products'}><div className='hover:text-[#2da74b]'>Manage Products</div></Link>
                         <Link href={'/customers'}><div className='hover:text-[#2da74b]'>Customers</div></Link>
                         <Link href={'/supplier-history'}><div className='hover:text-[#2da74b]'>Supplier History</div></Link>
-                        <Link href={'/employees'}><div className='hover:text-[#2da74b]'>Employees</div></Link>
+                        <Link href={'/employees'}><div className='hover:text-[#2da74b]'>Tea Collectors</div></Link>
                         <Link href={'/user-details'}><div className='hover:text-[#2da74b]'>Profile</div></Link>
                         <div onClick={handleLogout}> <div className='bg-[#2da74b] text-white hover:bg-[#255e33] p-2'>Logout</div></div>
                     </>
