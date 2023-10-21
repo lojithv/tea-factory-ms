@@ -149,11 +149,11 @@ const Employee = (props: Props) => {
         return debounce(handleSearchTextChange, 1000);
     }, []);
 
-    const handleDeleteEmployee = async (userId: string) => {
+    const handleDeleteEmployee = async (userId: string, value: boolean) => {
         try {
             const { error } = await supabase
                 .from('users')
-                .delete()
+                .update({ isactive: value })
                 .eq('userid', userId)
 
             if (error) {
@@ -168,7 +168,7 @@ const Employee = (props: Props) => {
                 Swal.fire({
                     icon: 'success',
                     title: 'Success',
-                    text: 'Delete Successfully',
+                    text: 'Update Successfully',
                     confirmButtonColor: '#2da74b'
                 })
                 setState(!state)

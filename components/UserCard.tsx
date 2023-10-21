@@ -22,7 +22,7 @@ interface UserProps {
     index: number;
     isDelete: boolean;
     isSupply?: boolean;
-    onDeleteUser?: (data: string) => void;
+    onDeleteUser?: (data: string, newValue: boolean) => void;
 }
 const UserCard: React.FC<UserProps> = ({ user, index, isDelete, onDeleteUser, isSupply }) => {
 
@@ -50,11 +50,11 @@ const UserCard: React.FC<UserProps> = ({ user, index, isDelete, onDeleteUser, is
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
+            confirmButtonText: 'Yes, update it!'
         }).then((result) => {
             if (result.isConfirmed) {
                 if (onDeleteUser)
-                    onDeleteUser(userId);
+                    onDeleteUser(userId, !user.isactive);
             }
         })
 
@@ -134,8 +134,8 @@ const UserCard: React.FC<UserProps> = ({ user, index, isDelete, onDeleteUser, is
                             {
                                 isDelete && (
                                     <div className="inline-flex items-center text-base font-semibold text-gray-900">
-                                        <button onClick={() => sendDeleteUserId(user?.userid)} className={`${dmSerifDisplay.className} bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full`}>
-                                            Delete
+                                        <button onClick={() => sendDeleteUserId(user?.userid)} className={`${dmSerifDisplay.className} ${user.isactive ? 'bg-red-500 hover:bg-red-600' : 'bg-green-500 hover:bg-green-600'} text-white font-bold py-2 px-4 rounded-full`}>
+                                            {user.isactive ? 'Mark as Inactive' : 'Mark as Active'}
                                         </button>
                                     </div>
                                 )
