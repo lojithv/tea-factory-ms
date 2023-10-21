@@ -42,7 +42,7 @@ function Cart({ }: Props) {
     }
 
     function add(accumulator: any, a: any) {
-        return accumulator + a.price;
+        return accumulator + (a.price * a.qty);
     }
 
     const handleOrder = async () => {
@@ -102,8 +102,10 @@ function Cart({ }: Props) {
 
                 {cartItems.length > 0 && !state && (
                     <div className='flex flex-col gap-5 p-10'>
-                        {cartItems.map((item: { product: string; price: any }, i: React.Key | null | undefined) => (
-                            <CartItem key={i} name={item.product} price={item.price} />
+                        {cartItems.map((item: {
+                            qty: number, product: string; price: any
+                        }, i: React.Key | null | undefined) => (
+                            <CartItem key={i} name={item.product} price={item.price} quantity={item.qty} />
                         ))}
                     </div>
                 )}
