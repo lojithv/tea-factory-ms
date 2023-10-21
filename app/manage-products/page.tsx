@@ -282,21 +282,21 @@ function ManageProducts({ }: Props) {
                                             <div className={`mt-10 sm:mx-auto sm:w-full sm:max-w-sm ${bitter.className}`}>
                                                 <div className="space-y-6">
                                                     <div>
-                                                        <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">Upload Image Url</label>
+                                                        <label htmlFor="name" className="block text-sm font-medium leading-6 text-black">Upload Image Url</label>
                                                         <div className="mt-2">
-                                                            <input id="image" name="image" type="text" value={image} onChange={(e) => setImage(e.target.value)} required className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                                                            <input id="image" placeholder='Image Url' name="image" type="text" value={image} onChange={(e) => setImage(e.target.value)} required className="block w-full  px-2 rounded-md border-0 py-1.5 text-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
                                                         </div>
                                                     </div>
 
                                                     <div>
-                                                        <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">Name</label>
+                                                        <label htmlFor="email" className="block text-sm font-medium leading-6 text-black">Name</label>
                                                         <div className="mt-2">
-                                                            <input id="name" name="name" type="text" value={name} autoComplete="name" required onChange={(e) => setName(e.target.value)} className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                                                            <input id="name" placeholder='Name' name="name" type="text" value={name} autoComplete="name" required onChange={(e) => setName(e.target.value)} className="block w-full  px-2 rounded-md border-0 py-1.5 text-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
                                                         </div>
                                                     </div>
                                                     <div>
                                                         <div className="flex items-center justify-between">
-                                                            <label htmlFor="quantity" className="block text-sm font-medium leading-6 text-gray-900">
+                                                            <label htmlFor="quantity" className="block text-sm font-medium leading-6 text-black">
                                                                 Type
                                                             </label>
                                                         </div>
@@ -307,7 +307,7 @@ function ManageProducts({ }: Props) {
                                                                 onChange={(e) => setType(e.target.value)}
                                                                 required
                                                                 value={type}
-                                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                                                className="block w-full rounded-md border-0 py-1.5 text-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                                             >
                                                                 <option value="">Select Type</option>
                                                                 <option value="fertilizer">fertilizer</option>
@@ -318,19 +318,19 @@ function ManageProducts({ }: Props) {
 
                                                     <div>
                                                         <div className="flex items-center justify-between">
-                                                            <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">Price (Rs.)</label>
+                                                            <label htmlFor="password" className="block text-sm font-medium leading-6 text-black">Price (Rs.)</label>
                                                         </div>
                                                         <div className="mt-2">
-                                                            <input id="price" name="price" type="number" autoComplete="current-password" value={price} onChange={(e) => setPrice(e.target.value)} required className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                                                            <input id="price" placeholder='Price (Rs.)' name="price" type="number" autoComplete="current-password" value={price} onChange={(e) => setPrice(e.target.value)} required className="block w-full  px-2 rounded-md border-0 py-1.5 text-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
                                                         </div>
                                                     </div>
 
                                                     <div>
                                                         <div className="flex items-center justify-between">
-                                                            <label htmlFor="confirmpassword" className="block text-sm font-medium leading-6 text-gray-900">Quantity (units)</label>
+                                                            <label htmlFor="confirmpassword" className="block text-sm font-medium leading-6 text-black">Quantity (units)</label>
                                                         </div>
                                                         <div className="mt-2">
-                                                            <input id="quantity" name="quantity" type="number" value={quantity} onChange={(e) => setQuantity(e.target.value)} required className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                                                            <input id="quantity" placeholder='Quantity' name="quantity" type="number" value={quantity} onChange={(e) => setQuantity(e.target.value)} required className="block w-full rounded-md border-0 px-2 py-1.5 text-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
                                                         </div>
                                                     </div>
 
