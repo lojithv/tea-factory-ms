@@ -7,7 +7,6 @@ const nextConfig = {
     images: {
       domains: ['schojrtyfyhntmwbpfvj.supabase.co'],
     },
-    swcMinify:true
 }
 
 module.exports = nextConfig
