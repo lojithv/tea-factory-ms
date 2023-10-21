@@ -53,7 +53,7 @@ const Products = (props: Props) => {
             try {
                 const { data, error } = await supabase
                     .from('products')
-                    .select(`*`)
+                    .select(`*`).eq('instock', true)
 
                 if (error) {
                     console.log(error)
