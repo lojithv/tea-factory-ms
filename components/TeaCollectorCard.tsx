@@ -50,7 +50,7 @@ const TeaCollectorCard: React.FC<UserProps> = ({ user, index, isDelete, onDelete
 
     };
     return (
-        <a href={isDelete ? '#' : '/single-tea-collector/' + user.userid} onClick={() => handleClickCard(user?.userid)} key={index} className={`cursor-pointer w-full p-2 mb-1 mt-1 bg-white border border-gray-200 rounded-lg shadow sm:p-4`}>
+        <a href={isDelete ? '#' : '/single-tea-collector/' + user?.userid} onClick={() => handleClickCard(user?.userid)} key={index} className={`cursor-pointer w-full p-2 mb-1 mt-1 bg-white border border-gray-200 rounded-lg shadow sm:p-4`}>
             <div className="flow-root">
                 <ul role="list" className="divide-y divide-gray-200 dark:divide-gray-700">
                     <li className="py-3 sm:py-4">
