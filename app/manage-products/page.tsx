@@ -200,12 +200,12 @@ function ManageProducts({ }: Props) {
         setIsUpdate(true)
         setIsOpen(true)
     };
-    const handleDeleteProduct = async (productId: any) => {
+    const handleProductAvailabilityUpdate = async (productId: any, newValue: boolean) => {
         try {
 
             const { error } = await supabase
                 .from('products')
-                .delete()
+                .update({ instock: newValue })
                 .eq('id', productId)
 
 
@@ -221,7 +221,7 @@ function ManageProducts({ }: Props) {
                 Swal.fire({
                     icon: 'success',
                     title: 'Success',
-                    text: 'Deleted Successfully',
+                    text: 'Updated Successfully',
                     confirmButtonColor: '#2da74b'
                 })
                 setState(!state)
@@ -358,14 +358,14 @@ function ManageProducts({ }: Props) {
                     {selectedTab == 1 && (
                         <div className='flex flex-wrap gap-5 justify-center p-10'>
                             {fertilizer?.map((item: any, i: any) => (
-                                <ProductItem key={i} onDeleteProduct={handleDeleteProduct} id={item.id} type={item.type} onUpdateProduct={handleUpdateProduct} image={item.image} name={item.name} price={item.price} quantity={item.quantity} />
+                                <ProductItem key={i} onAvailabilityUpdate={handleProductAvailabilityUpdate} id={item.id} type={item.type} onUpdateProduct={handleUpdateProduct} image={item.image} name={item.name} price={item.price} quantity={item.quantity} instock={item.instock} />
                             ))}
                         </div>
                     )}
                     {selectedTab == 2 && (
                         <div className='flex flex-wrap gap-5 justify-center p-10'>
                             {teaPowder?.map((item: any, i: any) => (
-                                <ProductItem key={i} onDeleteProduct={handleDeleteProduct} id={item.id} type={item.type} onUpdateProduct={handleUpdateProduct} image={item.image} name={item.name} price={item.price} quantity={item.quantity} />
+                                <ProductItem key={i} onAvailabilityUpdate={handleProductAvailabilityUpdate} id={item.id} type={item.type} onUpdateProduct={handleUpdateProduct} image={item.image} name={item.name} price={item.price} quantity={item.quantity} instock={item.instock} />
                             ))}
                         </div>
                     )}
