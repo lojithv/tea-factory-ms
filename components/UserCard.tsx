@@ -1,9 +1,12 @@
+
+
 import React, { useState } from 'react';
 import { Bitter, DM_Serif_Display } from 'next/font/google'
-import { useRouter } from 'next/router';
+
 import useUser from '@/hooks/useUser'
 import Swal from 'sweetalert2'
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
+import { useRouter } from 'next/navigation';
 
 const dmSerifDisplay = DM_Serif_Display({
     subsets: ['latin'],
@@ -19,7 +22,7 @@ interface UserProps {
     index: number;
     isDelete: boolean;
     isSupply?: boolean;
-    onDeleteUser?: (data: string) => void;
+    onDeleteUser?: (data: string, newValue: boolean) => void;
 }
 const UserCard: React.FC<UserProps> = ({ user, index, isDelete, onDeleteUser, isSupply }) => {
 
@@ -29,7 +32,7 @@ const UserCard: React.FC<UserProps> = ({ user, index, isDelete, onDeleteUser, is
     const [amount, setAmount] = useState('')
     const [price, setPrice] = useState('')
     const supabase = createClientComponentClient()
-    // const router = useRouter();
+    const router = useRouter();
 
     const toggleDropdown = () => {
         setIsDropdownOpen(!isDropdownOpen);
@@ -47,11 +50,11 @@ const UserCard: React.FC<UserProps> = ({ user, index, isDelete, onDeleteUser, is
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
+            confirmButtonText: 'Yes, update it!'
         }).then((result) => {
             if (result.isConfirmed) {
                 if (onDeleteUser)
-                    onDeleteUser(userId);
+                    onDeleteUser(userId, !user.isactive);
             }
         })
 
@@ -60,7 +63,8 @@ const UserCard: React.FC<UserProps> = ({ user, index, isDelete, onDeleteUser, is
         setIsOpen(!isOpen);
     }
     const handleNavigate = () => {
-        window.location.href = (user.usertype == 'customer' ? '/customer-details/' : '/single-tea-collector/') + user.userid;
+        router.push((user.usertype == 'customer' ? '/customer-details/' : '/single-tea-collector/') + user.userid)
+        // window.location.href = (user.usertype == 'customer' ? '/customer-details/' : '/single-tea-collector/') + user.userid;
     }
     const handleAddCustomerSupply = async (userId: string) => {
         if (amount && price) {
@@ -130,8 +134,8 @@ const UserCard: React.FC<UserProps> = ({ user, index, isDelete, onDeleteUser, is
                             {
                                 isDelete && (
                                     <div className="inline-flex items-center text-base font-semibold text-gray-900">
-                                        <button onClick={() => sendDeleteUserId(user?.userid)} className={`${dmSerifDisplay.className} bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full`}>
-                                            Delete
+                                        <button onClick={() => sendDeleteUserId(user?.userid)} className={`${dmSerifDisplay.className} ${user.isactive ? 'bg-red-500 hover:bg-red-600' : 'bg-green-500 hover:bg-green-600'} text-white font-bold py-2 px-4 rounded-full`}>
+                                            {user.isactive ? 'Mark as Inactive' : 'Mark as Active'}
                                         </button>
                                     </div>
                                 )
@@ -180,14 +184,14 @@ const UserCard: React.FC<UserProps> = ({ user, index, isDelete, onDeleteUser, is
                             </div>
                             <div className="flex flex-grow flex-col justify-center px-6 py-6 lg:px-8">
                                 <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-                                    <h2 className={`text-center text-2xl font-bold leading-9 tracking-tight ${dmSerifDisplay.className} text-[#2da74b]`}>Add Custome Supply</h2>
+                                    <h2 className={`text-center text-2xl font-bold leading-9 tracking-tight ${dmSerifDisplay.className} text-[#2da74b]`}>Add Customer Supply</h2>
                                 </div>
 
                                 <div className={`mt-10 sm:mx-auto sm:w-full sm:max-w-sm ${bitter.className}`}>
                                     <div className="space-y-6">
 
                                         <div>
-                                            <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">Price</label>
+                                            <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">Price (Rs.)</label>
                                             <div className="mt-2">
                                                 <input id="name" name="name" type="number" autoComplete="name" required onChange={(e) => setPrice(e.target.value)} className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
                                             </div>
@@ -195,7 +199,7 @@ const UserCard: React.FC<UserProps> = ({ user, index, isDelete, onDeleteUser, is
 
                                         <div>
                                             <div className="flex items-center justify-between">
-                                                <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">Amount</label>
+                                                <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">Amount (kg)</label>
                                             </div>
                                             <div className="mt-2">
                                                 <input id="price" name="price" type="number" autoComplete="current-password" onChange={(e) => setAmount(e.target.value)} required className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />

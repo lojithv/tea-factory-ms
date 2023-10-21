@@ -1,7 +1,7 @@
 "use client"
 
 import useUser from '@/hooks/useUser'
-import { Briefcase, Mail, MapPin, Phone, UserCircle2 } from 'lucide-react'
+import { Briefcase, Calendar, Mail, MapPin, Phone, UserCircle2 } from 'lucide-react'
 import { Bitter, DM_Serif_Display } from 'next/font/google'
 import React, { useEffect, useState } from 'react'
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
@@ -78,10 +78,10 @@ const SingleEmoplyee = ({ params }: { params: { slug: string } }) => {
                     <div>
                         {user?.phonenumber}
                     </div>
-                    {/* <div className='flex font-bold mt-5 gap-2 text-[#2da74b]'><Mail />Route:</div>
-                    <div>
-                        {route}
-                    </div> */}
+                    <div className='flex font-bold mt-5 gap-2 text-[#2da74b]'><Calendar />Available Days:</div>
+                    <div className='flex gap-2'>
+                        {data && data.availabilities ? data.availabilities.map((av: { available: any; day: any }, i: React.Key | null | undefined) => (av.available && <div key={i}>{av.day}</div>)) : <div>Not Found</div>}
+                    </div>
                 </div>
             </div>
         </div>

@@ -86,7 +86,7 @@ const MyOrderedCard: React.FC<UserProps> = ({ order, index }) => {
                                 </td>
                                 <td>
                                     <p className={`${dmSerifDisplay.className} text-sm text-green-700 truncate `}>
-                                        Rs. {item?.price}
+                                        Rs. {item?.price}.00
                                     </p>
                                 </td>
                             </tr>
@@ -100,7 +100,7 @@ const MyOrderedCard: React.FC<UserProps> = ({ order, index }) => {
                             <td></td>
                             <td>
                                 <p className={`${dmSerifDisplay.className} text-sm font-medium text-gray-900 truncate `}>
-                                    Rs. {order.total}
+                                    Rs. {order.total}.00
                                 </p>
                             </td>
                         </tr>

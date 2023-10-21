@@ -149,11 +149,11 @@ const Employee = (props: Props) => {
         return debounce(handleSearchTextChange, 1000);
     }, []);
 
-    const handleDeleteEmployee = async (userId: string) => {
+    const handleDeleteEmployee = async (userId: string, value: boolean) => {
         try {
             const { error } = await supabase
                 .from('users')
-                .delete()
+                .update({ isactive: value })
                 .eq('userid', userId)
 
             if (error) {
@@ -168,7 +168,7 @@ const Employee = (props: Props) => {
                 Swal.fire({
                     icon: 'success',
                     title: 'Success',
-                    text: 'Delete Successfully',
+                    text: 'Update Successfully',
                     confirmButtonColor: '#2da74b'
                 })
                 setState(!state)
@@ -190,7 +190,7 @@ const Employee = (props: Props) => {
                 <div className="w-2/4  h-auto flex flex-col items-center">
                     <div className={`font-bold ${dmSerifDisplay.className} text-[48px] text-[#2da74b] mb-2`}>Employees</div>
                     <div className="mt-2">
-                        <input id="search" placeholder='search' name="search" type="text" autoComplete="current-password" onChange={debouncedResults} required className="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                        <input id="search" placeholder='search' name="search" type="text" autoComplete="current-password" onChange={debouncedResults} required className="block w-full rounded-md border-0 py-1.5 px-2 text-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
                     </div>
                     <div className='flex mt-2'>
                         <button
@@ -234,52 +234,52 @@ const Employee = (props: Props) => {
                                             <div className={`mt-10 sm:mx-auto sm:w-full sm:max-w-sm ${bitter.className}`}>
                                                 <div className="space-y-6">
                                                     <div>
-                                                        <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">Full Name</label>
+                                                        <label htmlFor="name" className="block text-sm font-medium leading-6 text-black">Full Name</label>
                                                         <div className="mt-2">
-                                                            <input id="name" name="name" placeholder='fullname' type="text" onChange={(e) => setFullName(e.target.value)} required className="block w-full rounded-md border-0 py-1.5 text-gray-900 px-2 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                                                            <input id="name" name="name" placeholder='fullname' type="text" onChange={(e) => setFullName(e.target.value)} required className="block w-full rounded-md border-0 py-1.5 text-black px-2 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
                                                         </div>
                                                     </div>
 
                                                     <div>
-                                                        <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">Email address</label>
+                                                        <label htmlFor="email" className="block text-sm font-medium leading-6 text-black">Email address</label>
                                                         <div className="mt-2">
-                                                            <input id="email" name="email" placeholder='email' type="email" autoComplete="email" required onChange={(e) => setEmail(e.target.value)} className="block w-full rounded-md border-0 px-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
-                                                        </div>
-                                                    </div>
-
-                                                    <div>
-                                                        <div className="flex items-center justify-between">
-                                                            <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">Password</label>
-                                                        </div>
-                                                        <div className="mt-2">
-                                                            <input id="password" name="password" placeholder='password' type="password" autoComplete="current-password" onChange={(e) => setPassword(e.target.value)} required className="block w-full px-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                                                            <input id="email" name="email" placeholder='email' type="email" autoComplete="email" required onChange={(e) => setEmail(e.target.value)} className="block w-full rounded-md border-0 px-2 py-1.5 text-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
                                                         </div>
                                                     </div>
 
                                                     <div>
                                                         <div className="flex items-center justify-between">
-                                                            <label htmlFor="confirmpassword" className="block text-sm font-medium leading-6 text-gray-900">Confirm Password</label>
+                                                            <label htmlFor="password" className="block text-sm font-medium leading-6 text-black">Password</label>
                                                         </div>
                                                         <div className="mt-2">
-                                                            <input id="confirmpassword" name="confirmpassword" placeholder='confirm password' type="password" onChange={(e) => setConfirmedPassword(e.target.value)} required className="block w-full px-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                                                            <input id="password" name="password" placeholder='password' type="password" autoComplete="current-password" onChange={(e) => setPassword(e.target.value)} required className="block w-full px-2 rounded-md border-0 py-1.5 text-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
                                                         </div>
                                                     </div>
 
                                                     <div>
                                                         <div className="flex items-center justify-between">
-                                                            <label htmlFor="address" className="block text-sm font-medium leading-6 text-gray-900">Address</label>
+                                                            <label htmlFor="confirmpassword" className="block text-sm font-medium leading-6 text-black">Confirm Password</label>
                                                         </div>
                                                         <div className="mt-2">
-                                                            <input id="address" name="address" placeholder='address' type="text" required onChange={(e) => setAddress(e.target.value)} className="block w-full rounded-md border-0 px-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                                                            <input id="confirmpassword" name="confirmpassword" placeholder='confirm password' type="password" onChange={(e) => setConfirmedPassword(e.target.value)} required className="block w-full px-2 rounded-md border-0 py-1.5 text-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
                                                         </div>
                                                     </div>
 
                                                     <div>
                                                         <div className="flex items-center justify-between">
-                                                            <label htmlFor="phonenum" className="block text-sm font-medium leading-6 text-gray-900">Phone Number</label>
+                                                            <label htmlFor="address" className="block text-sm font-medium leading-6 text-black">Address</label>
                                                         </div>
                                                         <div className="mt-2">
-                                                            <input id="phonenum" name="phonenum" placeholder='phone number' type="number" required onChange={(e) => setPhoneNum(e.target.value)} className="block w-full rounded-md px-2 border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                                                            <input id="address" name="address" placeholder='address' type="text" required onChange={(e) => setAddress(e.target.value)} className="block w-full rounded-md border-0 px-2 py-1.5 text-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                                                        </div>
+                                                    </div>
+
+                                                    <div>
+                                                        <div className="flex items-center justify-between">
+                                                            <label htmlFor="phonenum" className="block text-sm font-medium leading-6 text-black">Phone Number</label>
+                                                        </div>
+                                                        <div className="mt-2">
+                                                            <input id="phonenum" name="phonenum" placeholder='phone number' type="number" required onChange={(e) => setPhoneNum(e.target.value)} className="block w-full rounded-md px-2 border-0 py-1.5 text-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
                                                         </div>
                                                     </div>
 
