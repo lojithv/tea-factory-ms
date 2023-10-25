@@ -19,20 +19,23 @@ const bitter = Bitter({
 
 const OrderHistory = (props: Props) => {
     const supabase = createClientComponentClient()
-    const [orders, setOrders] = useState([] as any[])
     const [error, setError] = useState<any>(null);
     const user = useUser()
+
+
+    const [orders, setOrders] = useState([] as any[])
 
     useEffect(() => {
         if (user && !orders.length) {
             supabase.from('orders').select('*, users(*)').eq('userid', user?.user.id).then((res) => {
                 if (res.data) {
-                    console.log(res.data)
                     setOrders(res.data)
                 }
             })
         }
     }, [user])
+
+
     return (
         <>
             <div className="flex mb-4">

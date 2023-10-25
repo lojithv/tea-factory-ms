@@ -37,7 +37,6 @@ const Navbar = (props: Props) => {
 
     useEffect(() => {
         if (!subscriptions.length) {
-            console.log("route change.......")
             const sub = userDetailsSubject.subscribe((userData) => {
                 if (userData) {
                     setUserType(userData.usertype)
@@ -45,15 +44,8 @@ const Navbar = (props: Props) => {
                     setUserType('')
                 }
             })
-            console.log(user)
             setSubscriptions([sub])
         }
-
-        // if (user) {
-        //     setUserType(user.userDetails.usertype)
-        // } else {
-        //     setUserType('')
-        // }
 
         if (currentPage === '/') {
             if (user && user.userDetails.usertype === 'employee') {

@@ -23,8 +23,9 @@ function Cart({ }: Props) {
 
     const user = useUser()
 
-    const [cartItems, setCartItems] = useState([] as any[])
     const [state, setState] = useState<boolean>(false)
+
+    const [cartItems, setCartItems] = useState([] as any[])
 
     useEffect(() => {
         if (user && !cartItems.length) {

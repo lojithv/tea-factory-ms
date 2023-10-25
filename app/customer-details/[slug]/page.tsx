@@ -23,16 +23,10 @@ const SingleCustomer = ({ params }: { params: { slug: string } }) => {
     const [error, setError] = useState<any>();
     const [userId, setUserId] = useState<any>();
 
-    const [route, setRoute] = useState('')
     const supabase = createClientComponentClient()
 
     useEffect(() => {
-        // const ClickedUserId = localStorage.getItem('ClickedUserId');
-        console.log(params.slug)
         setUserId(params.slug)
-
-
-
         fetchData();
     }, []);
 
@@ -44,12 +38,10 @@ const SingleCustomer = ({ params }: { params: { slug: string } }) => {
                 .eq('userid', params.slug);
 
             if (error) {
-                console.log(error)
                 setError(error);
             } else {
                 setUser(data[0]);
                 getEmail(data[0].userid)
-                console.log("data========>", data)
             }
         } catch (error) {
             setError(error);

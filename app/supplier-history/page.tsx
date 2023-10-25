@@ -58,7 +58,8 @@ const SupplierHistory = (props: Props) => {
     }, []);
 
     const filterByDateRange = async () => {
-        const { data, error } = await supabase.from('supply_history').select('*, users(*)').lt('created_at', endDate).gte('created_at', startDate)
+        const { data, error } = await supabase.from('supply_history')
+            .select('*, users(*)').lt('created_at', endDate).gte('created_at', startDate)
         console.log(data)
         if (!searchText) {
             setShowSearchResults(false)
@@ -76,11 +77,11 @@ const SupplierHistory = (props: Props) => {
 
     const searchData = async (searchText: string) => {
         if (searchText) {
-            const { data, error } = await supabase.from('supply_history').select('*, users(*)').lt('created_at', endDate).gte('created_at', startDate).textSearch('users.fullname', searchText + ':*')
-            console.log(data)
+            const { data, error } = await supabase.from('supply_history')
+                .select('*, users(*)').lt('created_at', endDate).gte('created_at', startDate)
+                .textSearch('users.fullname', searchText + ':*')
             if (data) {
                 const filteredData = data.filter((d) => d.users != null)
-
                 setShowSearchResults(true)
                 setSearchResults(filteredData)
             }

@@ -114,6 +114,8 @@ function ManageProducts({ }: Props) {
         }
 
     };
+
+
     const handleUpdateProductData = async () => {
         if (image && name && price && quantity && type) {
             try {
@@ -200,6 +202,7 @@ function ManageProducts({ }: Props) {
         setIsUpdate(true)
         setIsOpen(true)
     };
+
     const handleProductAvailabilityUpdate = async (productId: any, newValue: boolean) => {
         try {
 
@@ -235,6 +238,7 @@ function ManageProducts({ }: Props) {
             })
         }
     }
+
     return (
         <>
             <div className='flex flex-grow items-center'>
