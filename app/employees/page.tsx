@@ -31,7 +31,6 @@ const Employee = (props: Props) => {
     const [fullName, setFullName] = useState('')
     const [address, setAddress] = useState('')
     const [phoneNum, setPhoneNum] = useState('')
-    const router = useRouter()
     const supabase = createClientComponentClient()
     const [users, setUsers] = useState<any[]>([]);
     const [error, setError] = useState<any>(null);
@@ -74,7 +73,7 @@ const Employee = (props: Props) => {
             password,
             options: {
                 emailRedirectTo: `${location.origin}/`,
-                data: { fullName: "test name", address: "test add", phoneNum: "08734234" }
+                // data: { fullName: "test name", address: "test add", phoneNum: "08734234" }
             },
         }).then((res) => {
             console.log(res)

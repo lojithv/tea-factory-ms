@@ -27,8 +27,6 @@ const SingleEmoplyee = ({ params }: { params: { slug: string } }) => {
     const supabase = createClientComponentClient()
 
     useEffect(() => {
-        // const ClickedUserId = localStorage.getItem('ClickedUserId');
-        console.log(params.slug)
         setUserId(params.slug)
 
         async function fetchData() {
@@ -44,7 +42,6 @@ const SingleEmoplyee = ({ params }: { params: { slug: string } }) => {
                 } else {
                     setUser(data[0].users);
                     setData(data[0])
-                    console.log("data========>", data)
                 }
             } catch (error) {
                 setError(error);

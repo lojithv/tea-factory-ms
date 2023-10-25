@@ -43,10 +43,10 @@ export default function BestCustomerChart({ data }: { data: any[] }) {
     }, [data])
 
     const generateChartData = () => {
-        // Sample raw data (assuming an array of objects with supplier records)
+        // Sample raw data (assuming an array of objects with customer records)
         const rawData = data;
 
-        // Create a map to aggregate data for each supplier
+        // Create a map to aggregate data for each customer
         const aggregatedData = new Map();
 
         rawData.forEach(record => {
@@ -58,7 +58,7 @@ export default function BestCustomerChart({ data }: { data: any[] }) {
             }
         });
 
-        // Calculate a metric to evaluate suppliers (e.g., total amount spent, average price)
+        // Calculate a metric to evaluate customers (e.g., total amount spent, average price)
         const customersMetrics: { userid: any; amount: any; name: string }[] = [];
         aggregatedData.forEach((records, user) => {
             const totalAmount = records.reduce((sum: any, record: { total: any; }) => sum + record.total, 0);
@@ -66,15 +66,14 @@ export default function BestCustomerChart({ data }: { data: any[] }) {
             customersMetrics.push({ userid: user, amount: totalAmount, name: data.filter((d) => d.userid == user)[0].users.fullname });
         });
 
-        // Sort the suppliers by the chosen metric (e.g., highest total amount, lowest average price)
+        // Sort the customers by the chosen metric (e.g., highest total amount, lowest average price)
         customersMetrics.sort((a, b) => b.amount - a.amount);
 
-        // Get the top three suppliers
+        // Get the top three customers
         const topThreeCustomers = customersMetrics.slice(0, 3);
 
         setChartData(topThreeCustomers)
-        console.log('Top three suppliers:', topThreeCustomers);
-
+        console.log('Top three customers:', topThreeCustomers);
     }
 
     if (!chartData.length) {

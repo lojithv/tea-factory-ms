@@ -19,6 +19,7 @@ const bitter = Bitter({
 })
 
 const SignUp = (props: Props) => {
+
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [confirmedPassword, setConfirmedPassword] = useState('')
@@ -44,12 +45,15 @@ const SignUp = (props: Props) => {
             password,
             options: {
                 emailRedirectTo: `${location.origin}/`,
-                data: { fullName: "test name", address: "test add", phoneNum: "08734234" }
+                // data: { fullName: "test name", address: "test add", phoneNum: "08734234" }
             },
         }).then((res) => {
             console.log(res)
             if (!res.error) {
-                supabase.from('users').insert({ userid: res.data.user?.id, fullname: fullName, address: address, phonenumber: phoneNum, usertype: 'customer', email: res.data.user?.email }).then((res1) => {
+                supabase.from('users').insert({
+                    userid: res.data.user?.id, fullname: fullName, address: address,
+                    phonenumber: phoneNum, usertype: 'customer', email: res.data.user?.email
+                }).then((res1) => {
                     if (!res1.error) {
                         router.push('/login')
                     }
@@ -63,8 +67,8 @@ const SignUp = (props: Props) => {
                 })
             }
         })
-        // router.refresh()
     }
+
     return (
         <div className="flex flex-grow flex-col justify-center px-6 py-12 lg:px-8">
             <div className="sm:mx-auto sm:w-full sm:max-w-sm">

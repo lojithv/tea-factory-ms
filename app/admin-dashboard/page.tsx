@@ -29,18 +29,21 @@ const AdminDashboard = (props: Props) => {
         console.log("30 days ago was:", thirtyDaysAgo);
 
         if (!orders.length) {
-            supabase.from('orders').select('*, users(*)').eq('status', 'completed').gt('created_at', thirtyDaysAgo.toISOString()).lt('created_at', currentDate.toISOString()).then((res) => {
-                if (res.data) {
-                    console.log(res.data)
-                    setOrders(res.data)
-                }
-            })
+            supabase.from('orders').select('*, users(*)')
+                .eq('status', 'completed').gt('created_at', thirtyDaysAgo.toISOString())
+                .lt('created_at', currentDate.toISOString()).then((res) => {
+                    if (res.data) {
+                        console.log(res.data)
+                        setOrders(res.data)
+                    }
+                })
         }
 
         if (!supplyHistory.length) {
             supabase
                 .from('supply_history')
-                .select(`*, users(*)`).gt('created_at', thirtyDaysAgo.toISOString()).lt('created_at', currentDate.toISOString()).then((res) => {
+                .select(`*, users(*)`).gt('created_at', thirtyDaysAgo.toISOString())
+                .lt('created_at', currentDate.toISOString()).then((res) => {
                     if (res.data) {
                         console.log(res.data)
                         setSupplyHistory(res.data);
@@ -52,7 +55,10 @@ const AdminDashboard = (props: Props) => {
     const exportOrders = () => {
         const orderDetails = orders.map((o) => {
             const products = JSON.parse(o.items)
-            return { id: o.id, date: new Date(o.created_at).toDateString(), name: o.users.fullname, price: o.total, phoneNo: o.users.phonenumber.toString() }
+            return {
+                id: o.id, date: new Date(o.created_at)
+                    .toDateString(), name: o.users.fullname, price: o.total, phoneNo: o.users.phonenumber.toString()
+            }
         })
         const csv = generateCsv(csvConfig)(orderDetails);
         download({ ...csvConfig, filename: 'Order Details' })(csv)
@@ -61,7 +67,10 @@ const AdminDashboard = (props: Props) => {
     const exportSupplyDetails = () => {
         const supplyDetails = supplyHistory.map((s) => {
             // const products = JSON.parse(s.items)
-            return { id: s.id, date: new Date(s.created_at).toDateString(), name: s.users.fullname, amount: s.amount, price: s.price, phoneNo: s.users.phonenumber.toString() }
+            return {
+                id: s.id, date: new Date(s.created_at)
+                    .toDateString(), name: s.users.fullname, amount: s.amount, price: s.price, phoneNo: s.users.phonenumber.toString()
+            }
         })
         const csv = generateCsv(csvConfig)(supplyDetails);
         download({ ...csvConfig, filename: 'Supply Details' })(csv)

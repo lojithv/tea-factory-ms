@@ -31,14 +31,11 @@ const Login = (props: Props) => {
             email,
             password,
         }).then((res) => {
-            console.log(res)
             userSubject.next(res.data.user)
             if (!res.error) {
                 supabase.from('users').select('*').eq('userid', res.data.user.id).then((res1) => {
-                    console.log(res1.data)
                     if (res1.data) {
                         const user = res1.data[0]
-                        console.log(user)
                         userDetailsSubject.next(user)
                         if (user?.usertype == 'admin') {
                             router.push('/admin-dashboard')
@@ -58,7 +55,6 @@ const Login = (props: Props) => {
                 })
             }
         })
-        // router.refresh()
     }
 
     return (

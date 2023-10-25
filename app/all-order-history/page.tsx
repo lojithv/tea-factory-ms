@@ -49,8 +49,9 @@ const AllOrderHistory = (props: Props) => {
     }, [])
 
     const filterByDateRange = async () => {
-        const { data, error } = await supabase.from('orders').select('*, users(*)').lt('created_at', endDate).gte('created_at', startDate).eq('status', 'completed')
-        console.log(data)
+        const { data, error } = await supabase.from('orders')
+            .select('*, users(*)').lt('created_at', endDate).gte('created_at', startDate)
+            .eq('status', 'completed')
         if (!searchText) {
             setShowSearchResults(false)
         }
@@ -67,8 +68,9 @@ const AllOrderHistory = (props: Props) => {
 
     const searchData = async (searchText: string) => {
         if (searchText) {
-            const { data, error } = await supabase.from('orders').select('*, users(*)').eq('status', 'completed').lt('created_at', endDate).gte('created_at', startDate).textSearch('users.fullname', searchText + ':*')
-            console.log(data)
+            const { data, error } = await supabase.from('orders')
+                .select('*, users(*)').eq('status', 'completed').lt('created_at', endDate)
+                .gte('created_at', startDate).textSearch('users.fullname', searchText + ':*')
             if (data) {
                 const filteredData = data.filter((d) => d.users != null)
 
