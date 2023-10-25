@@ -119,7 +119,7 @@ const Navbar = (props: Props) => {
 
                 {user?.userDetails.usertype == 'admin' && (
                     <>
-                        <Link href={'/admin-dashboard'}><div className='hover:text-[#2da74b]'>Dashboard</div></Link>
+                        <Link href={'/admin-dashboard'}><div className='hover:text-[#2da74b]'>Reports</div></Link>
                         <Link href={'/all-orders'}><div className='hover:text-[#2da74b]'>Orders</div></Link>
                         <Link href={'/all-order-history'}><div className='hover:text-[#2da74b]'>Order History</div></Link>
                         <Link href={'/manage-products'}><div className='hover:text-[#2da74b]'>Manage Products</div></Link>

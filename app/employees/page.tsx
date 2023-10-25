@@ -188,7 +188,7 @@ const Employee = (props: Props) => {
             <div className="flex mb-4">
                 <div className="w-1/4  h-auto"></div>
                 <div className="w-2/4  h-auto flex flex-col items-center">
-                    <div className={`font-bold ${dmSerifDisplay.className} text-[48px] text-[#2da74b] mb-2`}>Employees</div>
+                    <div className={`font-bold ${dmSerifDisplay.className} text-[48px] text-[#2da74b] mb-2`}>Tea Collectors</div>
                     <div className="mt-2">
                         <input id="search" placeholder='search' name="search" type="text" autoComplete="current-password" onChange={debouncedResults} required className="block w-full rounded-md border-0 py-1.5 px-2 text-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
                     </div>
@@ -197,7 +197,7 @@ const Employee = (props: Props) => {
                             onClick={togglePopup}
                             className={`${dmSerifDisplay.className} mb-4 bg-[#2da74b] hover:bg-[#2da74b]-700 text-white font-bold py-2 px-4 rounded`}
                         >
-                            Add new employee
+                            Add new Tea Collector
                         </button>
                         {isOpen && (
                             <div className="fixed inset-0 flex items-center justify-center z-50">
@@ -228,7 +228,7 @@ const Employee = (props: Props) => {
                                         </div>
                                         <div className="flex flex-grow flex-col justify-center px-6 py-6 lg:px-8">
                                             <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-                                                <h2 className={`text-center text-2xl font-bold leading-9 tracking-tight ${dmSerifDisplay.className} text-[#2da74b]`}>Add new employee</h2>
+                                                <h2 className={`text-center text-2xl font-bold leading-9 tracking-tight ${dmSerifDisplay.className} text-[#2da74b]`}>Add new Tea Collector</h2>
                                             </div>
 
                                             <div className={`mt-10 sm:mx-auto sm:w-full sm:max-w-sm ${bitter.className}`}>
@@ -284,7 +284,7 @@ const Employee = (props: Props) => {
                                                     </div>
 
                                                     <div>
-                                                        <button onClick={handleSignUp} className="flex w-full justify-center rounded-md bg-[#2da74b] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#24555c] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#285d64]">Add employee</button>
+                                                        <button onClick={handleSignUp} className="flex w-full justify-center rounded-md bg-[#2da74b] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#24555c] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#285d64]">Add Tea Collector</button>
                                                     </div>
                                                 </div>
                                             </div>
