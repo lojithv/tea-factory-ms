@@ -68,7 +68,7 @@ const AllOrders = (props: Props) => {
 
     const searchData = async (searchText: string) => {
         if (searchText) {
-            const { data, error } = await supabase.from('orders').select('*, users(*)').eq('status', 'pending').lt('created_at', endDate).gte('created_at', startDate).textSearch('users.fullname', searchText + ':*')
+            const { data, error } = await supabase.from('orders').select('*, users(*)').eq('status', 'pending').textSearch('users.fullname', searchText + ':*')
             console.log(data)
             if (data) {
                 const filteredData = data.filter((d) => d.users != null)
