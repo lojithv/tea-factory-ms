@@ -69,8 +69,7 @@ const AllOrderHistory = (props: Props) => {
     const searchData = async (searchText: string) => {
         if (searchText) {
             const { data, error } = await supabase.from('orders')
-                .select('*, users(*)').eq('status', 'completed').lt('created_at', endDate)
-                .gte('created_at', startDate).textSearch('users.fullname', searchText + ':*')
+                .select('*, users(*)').eq('status', 'completed').textSearch('users.fullname', searchText + ':*')
             if (data) {
                 const filteredData = data.filter((d) => d.users != null)
 

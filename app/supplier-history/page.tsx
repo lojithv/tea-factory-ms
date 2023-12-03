@@ -78,8 +78,7 @@ const SupplierHistory = (props: Props) => {
     const searchData = async (searchText: string) => {
         if (searchText) {
             const { data, error } = await supabase.from('supply_history')
-                .select('*, users(*)').lt('created_at', endDate).gte('created_at', startDate)
-                .textSearch('users.fullname', searchText + ':*')
+                .select('*, users(*)').textSearch('users.fullname', searchText + ':*')
             if (data) {
                 const filteredData = data.filter((d) => d.users != null)
                 setShowSearchResults(true)
