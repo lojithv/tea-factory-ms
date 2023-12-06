@@ -9,6 +9,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs, { Dayjs } from 'dayjs'
 import { LocalizationProvider } from '@mui/x-date-pickers'
+import Swal from 'sweetalert2'
 
 type Props = {}
 
@@ -32,6 +33,8 @@ const Customers = (props: Props) => {
 
     const [searchText, setSearchText] = useState<string>('')
     const [showSearchResults, setShowSearchResults] = useState<boolean>(false)
+
+    const [state, setState] = useState<boolean>(false);
 
     useEffect(() => {
         async function fetchData() {
@@ -84,6 +87,40 @@ const Customers = (props: Props) => {
         return debounce(handleSearchTextChange, 1000);
     }, []);
 
+    const handleDeleteUser = async (userId: string, value: boolean) => {
+        try {
+            const { error } = await supabase
+                .from('users')
+                .update({ isactive: value })
+                .eq('userid', userId)
+
+            if (error) {
+                setError(error.message);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: error.message,
+                    confirmButtonColor: '#2da74b'
+                })
+            } else {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success',
+                    text: 'Update Successfully',
+                    confirmButtonColor: '#2da74b'
+                })
+                setState(!state)
+            }
+        } catch (error) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: "Network error",
+                confirmButtonColor: '#2da74b'
+            })
+        }
+    };
+
     return (
         <>
             <div className="flex mb-4">
@@ -96,7 +133,7 @@ const Customers = (props: Props) => {
                     </div>
 
                     {(showSearchResults ? searchResults : customers)?.map((user: any, index: any) => (
-                        <UserCard key={index} index={index} user={user} isDelete={true} isSupply={true} />
+                        <UserCard key={index} index={index} user={user} isDelete={true} isSupply={true} onDeleteUser={handleDeleteUser} />
                     ))}
 
                     {showSearchResults && !searchResults.length && <div className='pt-3'>No Results Found</div>}
