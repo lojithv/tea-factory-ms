@@ -1,5 +1,4 @@
 "use client"
-import UserCard from '@/components/UserCard'
 import { Bitter, DM_Serif_Display } from 'next/font/google'
 import React, { useState, useEffect } from 'react'
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
