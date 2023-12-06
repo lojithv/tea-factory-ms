@@ -55,7 +55,7 @@ const Customers = (props: Props) => {
         }
 
         fetchData();
-    }, []);
+    }, [state]);
 
     useEffect(() => {
         return () => {
